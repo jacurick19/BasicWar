@@ -30,9 +30,9 @@ public class Troop extends Unit {
         this.faction = faction;
         this.job = "troop";
         this.map = map;
-        anger = 0;
+        anger = 2;
         hunger = 0;
-        repro = 0;
+        repro = 1;
         
         vitality = random.nextInt(5);
         strength = 3+random.nextInt(7);
@@ -45,11 +45,14 @@ public class Troop extends Unit {
     public void act(){
     	health--;
     	if(health<0) die();
-    	if(food<0) hunger+=10;
+    	if(hunger>10) { 
+    	hunger+=10;
     	health-=1;
+    	}
     	double a,b,c;
     	a = anger* agro + 1;
     	b = (Math.exp(hunger-strength));
+    	//TODO make sure this is increasing
     	if(vitality>0)c= repro % vitality;
     	else c =0;
 
@@ -57,23 +60,28 @@ public class Troop extends Unit {
     	double d = Math.max(t, c);
     	
     	if(d == a) move();
-    	//if(d == b) eat();
+    	if(d == b) eat();
     	if(d == c) reproduce();
-    
+    	
     }
 
     public void move(){
+    	System.out.println("move");
         int dir = random.nextInt(3);
         if(dir == 0) x++;
         if(dir == 1) x--;
         if(dir == 2) y++;
         if(dir == 3) y--;
-        food-= 1;
+        food+=100;
+        hunger+= 1;
     }
     
     public void eat(){
+    	System.out.println(Math.exp(hunger-strength));
+    	System.out.println("would move but "+(anger* agro + 1));
         food-=10;
         health+=5;
+        hunger = 0;
     }
     
     public void reproduce(){

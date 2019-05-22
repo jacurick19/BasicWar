@@ -39,6 +39,7 @@ public class Menu extends MouseAdapter{
     	
     	x=-2;
     	y=-2;
+
     }
     
     public void playButton() {
@@ -60,7 +61,7 @@ public class Menu extends MouseAdapter{
         g.drawRect(200, 200, 100, 30);
         g.drawRect(200, 250, 100, 30);
         g.setFont(new Font("Arial", Font.PLAIN, 22));
-        g.drawString("Test 1", 220, 172);
+        g.drawString("Play", 220, 172);
         g.drawString("Test 2", 220, 222);
         g.drawString("Test 3", 220, 272);
         

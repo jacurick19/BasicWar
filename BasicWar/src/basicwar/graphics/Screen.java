@@ -17,7 +17,8 @@ public class Screen {
     
     public void render(int x, int y, int faction){
     
-        pixels[x +y*size] = 0x66AD00;
+    	if(faction == 1) pixels[x +y*size] = 0xEE1414;
+    	if(faction == 2) pixels[x +y*size] = 0x0DD757;
         
     }
 }

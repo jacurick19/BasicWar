@@ -52,11 +52,11 @@ public class BasicWar extends Canvas implements Runnable  {
        addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
         for(int i = 0; i < 10; i ++){
-            map.addMap(new Troop(i+200,i+200,1));
+            map.addMap(new Troop(i+200,i+200,1, map));
 
     }
         for(int i = 0; i < 10; i ++){
-            map.addMap(new Troop(i-100,i+100,2));
+            map.addMap(new Troop(i-100,i+100,2, map));
 
     }
         

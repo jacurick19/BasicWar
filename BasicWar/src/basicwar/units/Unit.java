@@ -15,13 +15,23 @@ import basicwar.graphics.Screen;
 public abstract class Unit {
     public final int TROOP_HEALTH = 15;
     
+    
+    
+    //TODO add speed
     public abstract void render(Screen screen);
     public abstract void update();
+    public abstract void die();
     public int health;
     public int x;
     public int faction;
     public int y;
     public int ammo;
+    public int vitality;
+    public int strength;
+    public int anger;
+    public int hunger;
+    public int repro;
+    public int agro;
     public String job;
     protected int food;
     

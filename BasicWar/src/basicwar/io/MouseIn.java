@@ -6,21 +6,25 @@ import java.awt.event.MouseListener;
 
 public class MouseIn implements MouseListener{
 
+	
+	private int x = 0;
+	private int y = 0;
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+           x = e.getX();
+        y = e.getY();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        e.getX();
-        e.getY();
-        System.out.println(e.getX());
+        x =e.getX();
+        y =e.getY();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	x = -1;
+    	y = -1;
     }
 
     @Override
@@ -30,7 +34,18 @@ public class MouseIn implements MouseListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+	public int getX() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+	public int getY() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+    
+
     }
     
-}
+

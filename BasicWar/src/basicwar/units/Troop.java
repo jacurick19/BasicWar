@@ -57,8 +57,7 @@ public class Troop extends Unit {
 
     @Override
     public void update() {
-        move("x", 2);
-        move("y",1);
+        move("x", 1);
         
     }
 }

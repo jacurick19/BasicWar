@@ -5,6 +5,8 @@
  */
 package basicwar;
 
+
+import basicwar.graphics.Menu;
 import basicwar.graphics.Screen;
 import basicwar.io.MouseIn;
 import basicwar.map.Map;
@@ -25,7 +27,7 @@ import javax.swing.JFrame;
  *
  * @author jacob-laptop
  */
-public class BasicWar extends Canvas implements Runnable {
+public class BasicWar extends Canvas implements Runnable  {
     private static final long serialVersionUID = 1L;
     BufferStrategy bs;
     private BufferedImage image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
@@ -36,18 +38,21 @@ public class BasicWar extends Canvas implements Runnable {
     private MouseIn mouse;
     private boolean running = false;
     private JFrame frame;
-    
-    public enum  STATE{
-        MENU, RUNNING;
-    }
+    private Menu menu;
+    public STATE state;
+  
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
         map = new Map(500);
         frame = new JFrame();
+        frame.addMouseListener(mouse);
+        menu = new Menu(this);
+        this.addMouseListener(menu);
+       addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
-        for(int i = 0; i < 100; i ++){
-                map.addMap(new Troop(i,i,1));
+        for(int i = 0; i < 10; i ++){
+                map.addMap(new Troop(i+200,i+200,1));
 
         }
     }
@@ -101,8 +106,17 @@ public class BasicWar extends Canvas implements Runnable {
 
     
     public void update(){
-        map.update();
+        if(state == STATE.RUNNING){
+            map.update();
+        }
+        
+        else if(state == STATE.MENU){
+            menu.update();
+        }else state = STATE.MENU;
     }
+    
+    
+    
     public void render(){
                 screen.clear();
 
@@ -114,17 +128,34 @@ public class BasicWar extends Canvas implements Runnable {
 		return;
 		
 		}
+        if(state == STATE.RUNNING) {
         map.render(screen);
         
+        
+        }
+        
         for (int i = 0; i < pixles.length; i++) {
-                pixles[i] = screen.pixels[i];
-	}
+            pixles[i] = screen.pixels[i];
+}
+        
+        
+        
         
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-
+        if(state == STATE.MENU) {
+        	
+        	menu.render(g);
+        }
+        
+        
         bs.show();
 
+    }
+    
+    public void draw(Graphics g) {
+    	menu.render(g);
+    	
     }
     /**
      * @param args the command line arguments

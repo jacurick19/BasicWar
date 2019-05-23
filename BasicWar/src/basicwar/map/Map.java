@@ -37,8 +37,10 @@ public class Map {
     }
     
     public void update(){
+    	System.out.println(mapList.size());
         for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();
+            
         }
     }
     

@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *urickjl2023@mountunion.edu
- * JAcob Urick CSC 220 
- */
+
 package basicwar.units;
 
 import java.util.Random;
@@ -15,17 +7,51 @@ import basicwar.graphics.Screen;
 import basicwar.map.Map;
 
 
-//TODO bounds on movement
 //TODO reproduction
 //TODO battle
 
 public class Troop extends Unit {
     private Map map;
-   
+   private double drive = 0;
 	Random random;
 	int time = 0;
+	
+	public int plusMinus() {
+		if(random.nextInt()%2 == 0) return 1;
+		else return -1;
+
+	}
     public Troop(){
         faction = -1;
+    }
+    
+    public double reproFunction() {
+    	if(repro + vitality > 200)  drive+=1;
+    	return drive;
+    	
+    }
+    
+    
+    
+    public Troop(int x, int y, Unit parent, Map map){
+    	random = new Random();
+        this.ammo = 5;
+        this.health=TROOP_HEALTH;
+        this.faction = parent.faction;
+        this.job = "troop";
+        this.map = map;
+        anger = 2;
+        hunger = 0;
+        repro = 1;
+        
+        food = 5;
+        
+        vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
+        strength = parent.strength + (plusMinus()*(random.nextInt(2) * DELTA));
+        agro = parent.agro + (plusMinus()*(random.nextInt(2) * DELTA));;
+        
+        this.x = x;
+        this.y = y;
     }
   
     public Troop(int x, int y, int faction, Map map){
@@ -57,16 +83,17 @@ public class Troop extends Unit {
     	a = anger* agro + 1;
     	b = (Math.exp(hunger-strength));
     	//TODO make sure this is increasing
-    	if(vitality>0)c= repro % vitality;
+    	if(vitality>0)c= reproFunction();
     	else c =0;
 
     	double t = Math.max(a, b);
     	double d = Math.max(t, c);
     	
     	if(d == a) move();
+    	if(d == c) reproduce();
     	if(d == b && food >0) eat();
     	else move();
-    	if(d == c) reproduce();
+    	
     	
     }
 
@@ -89,8 +116,11 @@ public class Troop extends Unit {
     
     public void reproduce(){
         if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && time%15==0){
-            food-=5;
+            food-=10;
             repro=0;
+            map.addMap(new Troop(x+1, y+1, this, map));
+            //map.addMap(new Troop(x+2,y+2,1, map));
+            drive = 0;
         }
         
     }
@@ -110,7 +140,6 @@ public class Troop extends Unit {
 
 	@Override
 	public void die() {
-		System.out.println(toString());
 		map.removeMap(this);
 		
 	}

@@ -14,6 +14,7 @@ import basicwar.graphics.Screen;
 
 public abstract class Unit {
     public final int TROOP_HEALTH = 15;
+    public final double DELTA = .15;
     
     
     
@@ -21,17 +22,17 @@ public abstract class Unit {
     public abstract void render(Screen screen);
     public abstract void update();
     public abstract void die();
-    public int health;
+    public double health;
     public int x;
     public int faction;
     public int y;
     public int ammo;
-    public int vitality;
-    public int strength;
-    public int anger;
-    public int hunger;
-    public int repro;
-    public int agro;
+    public double vitality;
+    public double strength;
+    public double anger;
+    public double hunger;
+    public double repro;
+    public double agro;
     public String job;
     protected int food;
     

@@ -15,8 +15,13 @@ import basicwar.graphics.Screen;
 import basicwar.map.Map;
 
 
+//TODO bounds on movement
+//TODO reproduction
+//TODO battle
+
 public class Troop extends Unit {
     private Map map;
+   
 	Random random;
 	int time = 0;
     public Troop(){
@@ -43,7 +48,6 @@ public class Troop extends Unit {
     }
     
     public void act(){
-    	health--;
     	if(health<0) die();
     	if(hunger>10) { 
     	hunger+=10;
@@ -60,25 +64,24 @@ public class Troop extends Unit {
     	double d = Math.max(t, c);
     	
     	if(d == a) move();
-    	if(d == b) eat();
+    	if(d == b && food >0) eat();
+    	else move();
     	if(d == c) reproduce();
     	
     }
 
     public void move(){
-    	System.out.println("move");
-        int dir = random.nextInt(3);
-        if(dir == 0) x++;
-        if(dir == 1) x--;
-        if(dir == 2) y++;
-        if(dir == 3) y--;
-        food+=100;
+        int dir = random.nextInt(4);
+        
+        if(dir == 0 && x<499) x++;
+        if(dir == 1 && x>0) x--;
+        if(dir == 2 && y< 499) y++;
+        if(dir == 3 && y>0) y--;
+        food+=10;
         hunger+= 1;
     }
     
     public void eat(){
-    	System.out.println(Math.exp(hunger-strength));
-    	System.out.println("would move but "+(anger* agro + 1));
         food-=10;
         health+=5;
         hunger = 0;

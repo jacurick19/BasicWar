@@ -56,7 +56,7 @@ public class BasicWar extends Canvas implements Runnable  {
 
     }
         for(int i = 0; i < 10; i ++){
-            map.addMap(new Troop(i-100,i+100,2, map));
+            map.addMap(new Troop(i+400,i+100,2, map));
 
     }
         
@@ -81,7 +81,7 @@ public class BasicWar extends Canvas implements Runnable  {
 
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
-        final double ns = 1000000000.0 / 2.0;
+        final double ns = 1000000000.0 / 200.0;
         double delta = 0; 
         int frames = 0;
         int updates = 0;

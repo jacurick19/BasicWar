@@ -13,6 +13,7 @@ public class MouseIn implements MouseListener{
     public void mouseClicked(MouseEvent e) {
            x = e.getX();
         y = e.getY();
+
     }
 
     @Override

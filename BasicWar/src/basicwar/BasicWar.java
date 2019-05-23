@@ -56,7 +56,7 @@ public class BasicWar extends Canvas implements Runnable  {
 
     }
         for(int i = 0; i < 10; i ++){
-            map.addMap(new Troop(i+400,i+100,2, map));
+            map.addMap(new Troop(i+300,i+200,2, map));
 
     }
         

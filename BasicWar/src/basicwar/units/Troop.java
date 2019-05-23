@@ -26,7 +26,7 @@ public class Troop extends Unit {
     }
     
     public double reproFunction() {
-    	if(repro + vitality > 200)  drive+=1;
+    	if(repro + vitality > 250 )  drive+=1;
     	return drive;
     	
     }
@@ -63,11 +63,12 @@ public class Troop extends Unit {
         this.map = map;
         anger = 2;
         hunger = 0;
-        repro = 1;
+        
         
         vitality = random.nextInt(5);
         strength = 3+random.nextInt(7);
         agro = random.nextInt(5)+5;
+        repro = vitality;
         
         this.x = x;
         this.y = y;
@@ -100,12 +101,13 @@ public class Troop extends Unit {
     public void move(){
         int dir = random.nextInt(4);
         
-        if(dir == 0 && x<499) x++;
+        if(dir == 0 && x<498) x++;
         if(dir == 1 && x>0) x--;
-        if(dir == 2 && y< 499) y++;
+        if(dir == 2 && y< 498) y++;
         if(dir == 3 && y>0) y--;
         food+=10;
         hunger+= 1;
+       
     }
     
     public void eat(){
@@ -115,11 +117,10 @@ public class Troop extends Unit {
     }
     
     public void reproduce(){
-        if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && time%15==0){
+        if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && repro >0){
             food-=10;
-            repro=0;
-            map.addMap(new Troop(x+1, y+1, this, map));
-            //map.addMap(new Troop(x+2,y+2,1, map));
+            repro--;;
+            map.addMap(new Troop(x, y, this, map));
             drive = 0;
         }
         
@@ -135,7 +136,7 @@ public class Troop extends Unit {
     	act();
         time++;
         hunger++;
-        repro++;
+        drive++;
     }
 
 	@Override

@@ -52,11 +52,11 @@ public class BasicWar extends Canvas implements Runnable  {
        addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
         for(int i = 0; i < 10; i ++){
-            map.addMap(new Troop(i+200,i+200,1, map));
+            map.addMap(new Troop(i+100,i+200,1, map));
 
     }
         for(int i = 0; i < 10; i ++){
-            map.addMap(new Troop(i+300,i+200,2, map));
+            map.addMap(new Troop(i+200,i+200,2, map));
 
     }
         
@@ -81,14 +81,14 @@ public class BasicWar extends Canvas implements Runnable  {
 
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
-        final double ns = 1000000000.0 / 200.0;
+        final double ns = 1000000000.0 / 100.0;
         double delta = 0; 
         int frames = 0;
         int updates = 0;
         
         requestFocus();
-        while(running){
-            long now = System.nanoTime();
+        while(running){     
+        	long now = System.nanoTime();
             delta+=(now-lastTime)/ns;
             lastTime=now;
             while(delta>=1){

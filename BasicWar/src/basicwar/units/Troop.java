@@ -1,14 +1,16 @@
 
 package basicwar.units;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import basicwar.graphics.Screen;
 import basicwar.map.Map;
 
 
-//TODO reproduction
-//TODO battle
+//TODO  battle
+//TODO be able to change settings within program
+//TODO be able to change simulation speed
 
 public class Troop extends Unit {
     private Map map;
@@ -128,7 +130,9 @@ public class Troop extends Unit {
 
     @Override
     public void render(Screen screen) {
-        screen.render(this.x,this.y,faction);
+        if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map);
+     
+        ;
     }
 
     @Override
@@ -138,7 +142,36 @@ public class Troop extends Unit {
         hunger++;
         drive++;
     }
+    
+    public Unit battle(Unit a, Unit b) {
+    	Unit winner;
+    	Unit loser;
+    	if(a.strength>= b.strength) { winner = a;
+    	loser = b;}
+    	else {winner =b;
+    	
+    	loser = a;}
+    	
+    	loser.die();
+    	return winner;
+    	
+    }
 
+    
+    public Unit battle(ArrayList<ArrayList<ArrayList<Unit>>> ar) {
+    	Unit victor;
+    	for(int i = 0; i <(ar.get(x).get(y)).size(); i++) {
+    		if(ar.get(x).get(y).get(i).faction != faction) {
+    			battle(this, ar.get(x).get(y).get(i));
+    		
+    		}
+    		
+    		
+    		
+    	}
+		return null;
+    	
+    }
 	@Override
 	public void die() {
 		map.removeMap(this);

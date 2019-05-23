@@ -17,27 +17,40 @@ import java.util.ArrayList;
 
 public class Map {
     public final int MAP_SIZE = 500;
-    private ArrayList<Unit> mapList = new ArrayList<Unit>();
-    private Unit[][] map = new Unit[MAP_SIZE][MAP_SIZE];
+    public ArrayList<Unit> mapList = new ArrayList<Unit>();
+   // public ArrayList<ArrayList<Unit>> map = new ArrayList<ArrayList<Unit>>();
+    public ArrayList<ArrayList<ArrayList<Unit>>> map = new ArrayList<ArrayList<ArrayList<Unit>>>() ;
     public Map(int size){
-
+    	for(int i = 0; i < MAP_SIZE; i++) {
+    		ArrayList<ArrayList<Unit>> toAdd = new ArrayList<ArrayList<Unit>>();
+    		for(int j = 0; j < MAP_SIZE; j++) {
+        		toAdd.add(new ArrayList<Unit>());
+        	}
+    		map.add(i, toAdd);
+    		
+    	}
     }
     public void addMap(Unit unit){
         mapList.add(unit);
+        
     }
     public void removeMap(Unit unit){
         mapList.remove(unit);
     }
     public void add(int x, int y, Unit unit){
-        map[x][y] = unit;
+       // map[x][y] = unit;
     }
     
     public void remove(int x, int y){
-        map[x][y] = null;
+     //   map[x][y] = null;
     }
     
     public void update(){
-    	System.out.println(mapList.size());
+    	
+    	for(int i = 0; i < mapList.size(); i ++){
+    		(map.get((mapList.get(i).x)).get(mapList.get(i).y)).add(mapList.get(i));
+
+        }
         for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();
             

@@ -45,10 +45,19 @@ public class Map {
     }
     
     public void update(){
-    	
+    	map.clear();
+    	for(int i = 0; i < MAP_SIZE; i++) {
+    		ArrayList<ArrayList<Unit>> toAdd = new ArrayList<ArrayList<Unit>>();
+    		for(int j = 0; j < MAP_SIZE; j++) {
+        		toAdd.add(new ArrayList<Unit>());
+        	}
+    		map.add(i, toAdd);
+    		
+    	}
     	for(int i = 0; i < mapList.size(); i ++){
-    		(map.get((mapList.get(i).x)).get(mapList.get(i).y)).add(mapList.get(i));
-
+    		
+    		map.get(mapList.get(i).x).get(mapList.get(i).y).add(mapList.get(i));
+    		System.out.println(map.get(105).get(100));
         }
         for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();

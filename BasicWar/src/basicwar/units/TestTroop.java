@@ -155,11 +155,10 @@ public class TestTroop extends Unit {
 
     
     public void battle(ArrayList<ArrayList<ArrayList<Unit>>> ar) {
-    	System.out.println(ar.get(x).get(y));
+    	//System.out.println(ar.get(x).get(y));
     	for(int i = 0; i <(ar.get(x).get(y)).size(); i++) {
     		
     		if(ar.get(x).get(y).get(i).faction != faction) {
-    			System.out.println(toString());
     			battle(this, ar.get(x).get(y).get(i));
     			//System.out.println("health after "+ar.get(x).get(y).get(i).health );
     		

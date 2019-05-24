@@ -10,7 +10,6 @@
 package basicwar.map;
 
 import basicwar.graphics.Screen;
-import basicwar.units.Troop;
 import basicwar.units.Unit;
 import java.util.ArrayList;
 

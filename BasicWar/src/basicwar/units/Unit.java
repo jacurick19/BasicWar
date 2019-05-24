@@ -16,12 +16,14 @@ public abstract class Unit {
     public final int TROOP_HEALTH = 15;
     public final double DELTA = .15;
     
-    
+    //NOTE WELL: faction must be greater than 0 or the UNIT will not render
     
     //TODO add speed
     public abstract void render(Screen screen);
     public abstract void update();
     public abstract void die();
+    public abstract void setHealth(double health);
+    public abstract void changeHealth(double health);
     public double health;
     public int x;
     public int faction;

@@ -20,9 +20,10 @@ public class Screen {
     	if(x+y*size < pixels.length) {
     		if(pixels[x+y*size] == 0) {
     			if(faction == 1) pixels[x +y*size] = 0xEE1414;
-        		if(faction == 2) pixels[x +y*size] = 0x0DD757;
+        		if(faction == 0) pixels[x +y*size] = 0x0DD757;
         		return true;
         	}else {
+        		
         		return false;
         	}
     	} else {

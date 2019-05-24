@@ -12,7 +12,7 @@ import basicwar.map.Map;
 //TODO be able to change simulation speed
 //TODOlook into trading
 
-public class Troop extends Unit {
+public class TestTroop extends Unit {
     private Map map;
    private double drive = 0;
 	Random random;
@@ -23,7 +23,7 @@ public class Troop extends Unit {
 		else return -1;
 
 	}
-    public Troop(){
+    public TestTroop(){
         faction = -1;
     }
     
@@ -35,7 +35,7 @@ public class Troop extends Unit {
     
     
     
-    public Troop(int x, int y, Unit parent, Map map){
+    public TestTroop(int x, int y, Unit parent, Map map){
     	random = new Random();
         this.ammo = 5;
         this.health=TROOP_HEALTH;
@@ -56,7 +56,7 @@ public class Troop extends Unit {
         this.y = y;
     }
   
-    public Troop(int x, int y, int faction, Map map){
+    public TestTroop(int x, int y, int faction, Map map){
     	random = new Random();
         this.ammo = 5;
         this.health=TROOP_HEALTH;
@@ -77,34 +77,17 @@ public class Troop extends Unit {
     }
     
     public void act(){
-    	if(health<0) die();
-    	if(hunger>10) { 
-    	hunger+=10;
-    	health-=1;
-    	}
-    	double a,b,c;
-    	a = anger* agro + 1;
-    	b = (Math.exp(hunger-strength));
-    	//TODO make sure this is increasing
-    	if(vitality>0)c= reproFunction();
-    	else c =0;
-
-    	double t = Math.max(a, b);
-    	double d = Math.max(t, c);
     	
-    	if(d == a) move();
-    	if(d == c) reproduce();
-    	if(d == b && food >0) eat();
-    	else move();
+    	move();
     	
     	
     }
 
     public void move(){
-        int dir = random.nextInt(4);
-        
-        if(dir == 0 && x<498) x++;
-        if(dir == 1 && x>0) x--;
+       int dir = faction;
+       
+       if(dir == 0 && x>0) x--;
+        if(dir == 1 && x<498) x++; 
         if(dir == 2 && y< 498) y++;
         if(dir == 3 && y>0) y--;
         food+=10;
@@ -124,7 +107,7 @@ public class Troop extends Unit {
         if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && repro >0){
             food-=10;
             repro--;;
-            map.addMap(new Troop(x, y, this, map));
+            map.addMap(new TestTroop(x, y, this, map));
             drive = 0;
         }
         
@@ -132,9 +115,8 @@ public class Troop extends Unit {
 
     @Override
     public void render(Screen screen) {
-        if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
-     
-        ;
+        if(!screen.renderIsEmpty(this.x,this.y,faction)) { battle(map.map);
+        }
     }
 
     @Override
@@ -172,11 +154,12 @@ public class Troop extends Unit {
     }
 
     
-    public void battle(ArrayList<ArrayList<ArrayList<Unit>>> ar, int x, int y) {
-    //	if(ar.get(x).get(y).size()==0)System.out.println(ar.get(x).get(y));
+    public void battle(ArrayList<ArrayList<ArrayList<Unit>>> ar) {
+    	System.out.println(ar.get(x).get(y));
     	for(int i = 0; i <(ar.get(x).get(y)).size(); i++) {
+    		
     		if(ar.get(x).get(y).get(i).faction != faction) {
-    			//System.out.println(toString());
+    			System.out.println(toString());
     			battle(this, ar.get(x).get(y).get(i));
     			//System.out.println("health after "+ar.get(x).get(y).get(i).health );
     		

@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package basicwar;
 
 
 import basicwar.graphics.Menu;
+import basicwar.graphics.OptionsMenu;
 import basicwar.graphics.Screen;
 import basicwar.io.MouseIn;
 import basicwar.map.Map;
@@ -24,10 +21,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-/**
- *
- * @author jacob-laptop
- */
+
 public class BasicWar extends Canvas implements Runnable  {
     private static final long serialVersionUID = 1L;
     BufferStrategy bs;
@@ -40,6 +34,7 @@ public class BasicWar extends Canvas implements Runnable  {
     private boolean running = false;
     private JFrame frame;
     private Menu menu;
+    private OptionsMenu options;
     public STATE state;
     public double simSpeed = 60.0;
   
@@ -50,7 +45,9 @@ public class BasicWar extends Canvas implements Runnable  {
         frame = new JFrame();
         frame.addMouseListener(mouse);
         menu = new Menu(this);
+        options = new OptionsMenu(this);
         this.addMouseListener(menu);
+        this.addMouseListener(options);
        addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
   
@@ -117,6 +114,9 @@ public class BasicWar extends Canvas implements Runnable  {
         }
         else if(state == STATE.TESTING){
             map.update();
+        }
+        else if(state == STATE.OPTIONS){
+            options.update();
         }else state = STATE.MENU;
     }
     
@@ -128,9 +128,9 @@ public class BasicWar extends Canvas implements Runnable  {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
 
-		createBufferStrategy(3);
+        	createBufferStrategy(3);
 
-		return;
+        	return;
 		
 		}
         if(state == STATE.RUNNING || state== STATE.TESTING) {
@@ -152,11 +152,14 @@ public class BasicWar extends Canvas implements Runnable  {
         if(state == STATE.MENU) {
         	
         	menu.render(g);
+        
         }
+        	if(state == STATE.OPTIONS) {
+        	
+        	options.render(g);
         
-        
+        }
         bs.show();
-
     }
     
     public void setUp(STATE s) {
@@ -180,13 +183,8 @@ public class BasicWar extends Canvas implements Runnable  {
     	}
     }
     
-    public void draw(Graphics g) {
-    	menu.render(g);
-    	
-    }
-    /**
-     * @param args the command line arguments
-     */
+  
+
     public static void main(String[] args) {
         BasicWar war = new BasicWar();
         war.frame.setResizable(false);

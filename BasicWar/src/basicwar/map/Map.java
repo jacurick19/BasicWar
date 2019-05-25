@@ -36,14 +36,7 @@ public class Map {
     public void removeMap(Unit unit){
         mapList.remove(unit);
     }
-    public void add(int x, int y, Unit unit){
-       // map[x][y] = unit;
-    }
-    
-    public void remove(int x, int y){
-     //   map[x][y] = null;
-    }
-    
+
     public void update(){
     	for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();

@@ -15,9 +15,7 @@ import basicwar.graphics.Screen;
 public abstract class Unit {
     public final int TROOP_HEALTH = 15;
     public final double DELTA = .15;
-    
-    //NOTE WELL: faction must be greater than 0 or the UNIT will not render
-    
+        
     //TODO add speed
     public abstract void render(Screen screen);
     public abstract void update();

@@ -22,8 +22,7 @@ public class Menu extends MouseAdapter{
 	
 	public void MousePressed(MouseEvent e) {
 
-		 x = e.getX();
-		 y = e.getY();		
+	
 		
 	}
 	public void MouseReleased(MouseEvent e) {
@@ -37,8 +36,7 @@ public class Menu extends MouseAdapter{
     		if(y>250&&y<280) optionsButton();
     	}
     	
-    	x=-2;
-    	y=-2;
+    	
 
     }
     
@@ -55,7 +53,10 @@ public class Menu extends MouseAdapter{
     }
     
     
-    public void optionsButton() {System.out.println("creditsbutton");}
+    public void optionsButton() {
+    	bw.state = STATE.OPTIONS;
+    	
+    }
     
     public void render(Graphics g){
     	g.setColor(Color.WHITE);
@@ -65,15 +66,17 @@ public class Menu extends MouseAdapter{
         g.setFont(new Font("Arial", Font.PLAIN, 22));
         g.drawString("Play", 205, 172);
         g.drawString("Run Test", 205, 222);
-        g.drawString("Test 3", 205, 272);
+        g.drawString("Options", 205, 272);
         
 
 
     }
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
+		if(bw.state != STATE.OPTIONS) {
 		x= arg0.getX();
 		y= arg0.getY();
+		}
 		
 	}
 	@Override
@@ -93,7 +96,8 @@ public class Menu extends MouseAdapter{
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		x=0;
+		y=0;
 		
 	}
 }

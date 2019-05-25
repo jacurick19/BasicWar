@@ -60,7 +60,6 @@ public class Map {
     	}
     	for(int i = 0; i < mapList.size(); i ++){
     		(map.get(mapList.get(i).x).get(mapList.get(i).y)).add(mapList.get(i));
-    		//System.out.println(map.get(mapList.get(i).x).get(mapList.get(i).y));
 
         }
         

@@ -32,7 +32,6 @@ public class Screen {
     			}
         		return true;
         	}else {
-System.out.println("returned false");
         		return false;
         	}
     	} else {

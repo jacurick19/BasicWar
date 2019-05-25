@@ -132,7 +132,6 @@ public class Troop extends Unit {
 
     @Override
     public void render(Screen screen) {
-    	//System.out.println(screen.renderIsEmpty(this.x,this.y,faction));
         if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
      
         ;
@@ -157,7 +156,6 @@ public class Troop extends Unit {
     	
     	loser.die();
     	
-    	//winner.setHealth(health* (1-(loser.strength / winner.strength))) ;
     	return winner;
     	
     }
@@ -174,12 +172,9 @@ public class Troop extends Unit {
 
     
     public void battle(ArrayList<ArrayList<ArrayList<Unit>>> ar, int x, int y) {
-    //	if(ar.get(x).get(y).size()==0)System.out.println(ar.get(x).get(y));
     	for(int i = 0; i <(ar.get(x).get(y)).size(); i++) {
     		if(ar.get(x).get(y).get(i).faction != faction) {
-    			//System.out.println(toString());
     			battle(this, ar.get(x).get(y).get(i));
-    			//System.out.println("health after "+ar.get(x).get(y).get(i).health );
     		
     			;
     		}

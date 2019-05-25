@@ -10,7 +10,7 @@ import basicwar.map.Map;
 
 //TODO be able to change settings within program
 //TODO be able to change simulation speed
-//TODOlook into trading
+//TODO look into trading
 
 public class TestTroop extends Unit {
     private Map map;
@@ -115,7 +115,10 @@ public class TestTroop extends Unit {
 
     @Override
     public void render(Screen screen) {
-        if(!screen.renderIsEmpty(this.x,this.y,faction)) { battle(map.map);
+    	//System.out.println(map.mapList);
+    	
+    	if(!(screen.renderIsEmpty(this.x,this.y,faction))) {
+        	battle(map.map);
         }
     }
 
@@ -137,7 +140,7 @@ public class TestTroop extends Unit {
     	loser = a;}
     	
     	loser.die();
-    	
+    	//System.out.println("there was battle");
     	//winner.setHealth(health* (1-(loser.strength / winner.strength))) ;
     	return winner;
     	
@@ -155,18 +158,15 @@ public class TestTroop extends Unit {
 
     
     public void battle(ArrayList<ArrayList<ArrayList<Unit>>> ar) {
-    	//System.out.println(ar.get(x).get(y));
+    	
     	for(int i = 0; i <(ar.get(x).get(y)).size(); i++) {
-    		
+        	
+
     		if(ar.get(x).get(y).get(i).faction != faction) {
     			battle(this, ar.get(x).get(y).get(i));
-    			//System.out.println("health after "+ar.get(x).get(y).get(i).health );
     		
     			;
     		}
-    		
-    		
-    		
     	}
 		
     	

@@ -123,7 +123,7 @@ public class BasicWar extends Canvas implements Runnable  {
     
     
     public void render(){
-                screen.clear();
+                
 
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
@@ -134,6 +134,7 @@ public class BasicWar extends Canvas implements Runnable  {
 		
 		}
         if(state == STATE.RUNNING || state== STATE.TESTING) {
+        	 screen.clear();
         map.render(screen);
         
         
@@ -174,7 +175,7 @@ public class BasicWar extends Canvas implements Runnable  {
     	}
     	if(s== STATE.TESTING) {
     		map.addMap(new TestTroop(100,100,1, map));
-    		map.addMap(new TestTroop(110,100,0, map));
+    		map.addMap(new TestTroop(104,100,0, map));
     		simSpeed = 1;
     	}
     }

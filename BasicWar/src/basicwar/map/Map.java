@@ -45,6 +45,10 @@ public class Map {
     }
     
     public void update(){
+    	for(int i = 0; i < mapList.size(); i ++){
+            mapList.get(i).update();
+            
+        }
     	map.clear();
     	for(int i = 0; i < MAP_SIZE; i++) {
     		ArrayList<ArrayList<Unit>> toAdd = new ArrayList<ArrayList<Unit>>();
@@ -55,14 +59,11 @@ public class Map {
     		
     	}
     	for(int i = 0; i < mapList.size(); i ++){
-    		
-    		map.get(mapList.get(i).x).get(mapList.get(i).y).add(mapList.get(i));
-    		System.out.println(map.get(105).get(100));
+    		(map.get(mapList.get(i).x).get(mapList.get(i).y)).add(mapList.get(i));
+    		//System.out.println(map.get(mapList.get(i).x).get(mapList.get(i).y));
+
         }
-        for(int i = 0; i < mapList.size(); i ++){
-            mapList.get(i).update();
-            
-        }
+        
     }
     
     public void render(Screen screen){

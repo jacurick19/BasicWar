@@ -132,6 +132,7 @@ public class Troop extends Unit {
 
     @Override
     public void render(Screen screen) {
+    	//System.out.println(screen.renderIsEmpty(this.x,this.y,faction));
         if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
      
         ;

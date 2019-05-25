@@ -19,11 +19,20 @@ public class Screen {
     	
     	if(x+y*size < pixels.length) {
     		if(pixels[x+y*size] == 0) {
-    			if(faction == 1) pixels[x +y*size] = 0xEE1414;
-        		if(faction == 0) pixels[x +y*size] = 0x0DD757;
+    			//System.out.println(pixels[x+y*size]);
+    			
+    			if(faction == 1) {pixels[x +y*size] = 0xEE1414;
+    			return true;
+    			}
+    			if(faction == 0) {pixels[x +y*size] = 0x0DD757;
+    			
+    			//System.out.println("check 2");
+
+    			return true;
+    			}
         		return true;
         	}else {
-        		
+System.out.println("returned false");
         		return false;
         	}
     	} else {

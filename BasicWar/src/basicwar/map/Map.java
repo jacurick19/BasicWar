@@ -89,9 +89,9 @@ public class Map {
     
     //Returns the faction with the most territory
     public int mostTerritory() {
-    	int toReturn = territoryByFaction[0];
+    	int toReturn = 0;
     	for(int i = 1 ; i< territoryByFaction.length; i ++) {
-    		if(territoryByFaction[i] > toReturn) toReturn = i;
+    		if(territoryByFaction[i] > territoryByFaction[toReturn]) toReturn = i;
     		
     	}
     	return toReturn;

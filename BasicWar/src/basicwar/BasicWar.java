@@ -120,6 +120,14 @@ public class BasicWar extends Canvas implements Runnable  {
         }else state = STATE.MENU;
     }
     
+    public String factionToColor(int faction) {
+    	String s = "";
+    	if(faction ==0) s+= "green";
+    	if(faction ==1) s+= "red";
+    	if(faction ==2) s+= "blue";
+    	if(faction ==3) s+= "yellow";
+    	return s;
+    }
     
     
     public void render(){
@@ -133,11 +141,14 @@ public class BasicWar extends Canvas implements Runnable  {
         	return;
 		
 		}
+        Graphics g = bs.getDrawGraphics();
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+   	 	g.setColor(Color.WHITE);
+
         if(state == STATE.RUNNING || state== STATE.TESTING) {
         	 screen.clear();
-        map.render(screen);
-        
-        
+        	 map.render(screen);
+        	 g.drawString("Faction "+factionToColor(map.mostTerritory()) +" has the most territory", 300, 10);
         }
         
         for (int i = 0; i < pixles.length; i++) {
@@ -147,8 +158,9 @@ public class BasicWar extends Canvas implements Runnable  {
         
         
         
-        Graphics g = bs.getDrawGraphics();
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+      
+        
+       
         if(state == STATE.MENU) {
         	
         	menu.render(g);
@@ -167,21 +179,21 @@ public class BasicWar extends Canvas implements Runnable  {
     	if(s == STATE.RUNNING) {
     	
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+100,i+100,1, map));
+    			map.addMap(new Troop(i+150,i+100,1, map));
     		}
     		
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+100,i+201,0, map));
+    			map.addMap(new Troop(i+100,i+150,0, map));
 
     		}
     		
     		
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+200,i+100,2, map));
+    			map.addMap(new Troop(i+100,i+100,2, map));
     		}
     		
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+200,i+201,3, map));
+    			map.addMap(new Troop(i+150,i+150,3, map));
 
     		}
     		

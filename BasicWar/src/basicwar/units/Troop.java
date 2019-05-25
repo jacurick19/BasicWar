@@ -76,11 +76,20 @@ public class Troop extends Unit {
     }
     
     public void act(){
+    	//Die of natural causes
+    	if(time > (strength*50)) {
+    		die();
+    	}
+    	//die if you have no health
     	if(health<0) die();
+    	
+    	//Starve
     	if(hunger>10) { 
     	hunger+=10;
     	health-=1;
     	}
+    	
+    	//Decide what they want to do
     	double a,b,c;
     	a = anger* agro + 1;
     	b = (Math.exp(hunger-strength));

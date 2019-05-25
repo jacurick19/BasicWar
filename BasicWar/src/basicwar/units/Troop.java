@@ -8,9 +8,8 @@ import basicwar.graphics.Screen;
 import basicwar.map.Map;
 
 
-//TODO be able to change settings within program
-//TODO be able to change simulation speed
-//TODOlook into trading
+// TODO look into trading
+
 
 public class Troop extends Unit {
     private Map map;

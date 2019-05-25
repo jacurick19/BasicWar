@@ -26,6 +26,16 @@ public class Screen {
     		
     			return true;
     			}
+    			
+    			if(faction == 2) {
+    				pixels[x+y*size] = 0x4286f4;
+    					return true;
+    			}
+    			
+    			if(faction == 3) {
+    				pixels[x+y*size] = 0xefe81f;
+    					return true;
+    			}
         		return true;
         	}else {
         		return false;

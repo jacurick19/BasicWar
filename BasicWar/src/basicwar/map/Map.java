@@ -133,6 +133,10 @@ public class Map {
     }
     
     public void renderSolid(Screen screen){
+    	
+    	 for(int i = 0; i < mapList.size(); i ++){
+             mapList.get(i).render(screen);
+         }
     	for(int i = 0; i < MAP_SIZE; i++) {
     		for(int j = 0; j < MAP_SIZE; j++) {
     			territoryColors[i][j] = factionToHex(territory[i][j]);

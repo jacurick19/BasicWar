@@ -20,6 +20,8 @@ import basicwar.BasicWar;
 import basicwar.STATE;
 public class OptionsMenu extends MouseAdapter{
 
+	
+	//TODO make the box checked based on if it was previously checked
 		String input;
 		int x,y;
 		BasicWar bw;
@@ -67,7 +69,7 @@ public class OptionsMenu extends MouseAdapter{
 	    	button1.setBounds(30, 210, 90, 30);
 	    	button2.setBounds(170, 210, 90, 30);
 	    	
-	    	
+	    	check1.setSelected(bw.displayTerritoryAsSolid);
 	    	
 	    	panel.add(check1);
 	    	panel.add( button2);
@@ -112,7 +114,6 @@ public class OptionsMenu extends MouseAdapter{
 	    }	
 	    
 	    public void returnButton() {
-	    	
 	    	bw.state = STATE.MENU;
 	    	
 	    	
@@ -120,6 +121,7 @@ public class OptionsMenu extends MouseAdapter{
 	    
 	    
 	    public void creditsButton() {
+	    	bw.simSpeed = 60.0;
 	    	bw.state = STATE.CREDITS;
 	    	}
 	    
@@ -136,7 +138,7 @@ public class OptionsMenu extends MouseAdapter{
 	        g.drawRect(200, 200, 100, 30);
 	        g.drawRect(200, 250, 100, 30);
 	        g.setFont(new Font("Arial", Font.PLAIN, 22));
-	        g.drawString("Sim. Settings", 205, 172);
+	        g.drawString("Settings", 205, 172);
 	        g.drawString("Return", 205, 222);
 	        g.drawString("Credits", 205, 272);
 	        

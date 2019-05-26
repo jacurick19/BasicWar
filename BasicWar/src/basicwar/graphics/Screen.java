@@ -52,4 +52,16 @@ public class Screen {
     	if(faction == 2) pixels[x +y*size] = 0x0DD757;
     	} else System.out.println("problem");
     }
+    
+    
+    public void renderSolid(int[][] ar){
+    	for(int i = 0; i < ar.length; i ++) {
+    		for(int j = 0; j < ar.length; j++) {
+    			pixels[i+j* size] = ar[i][j];
+    		    		
+    		}
+    		
+    	}
+    	
+    }
 }

@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -58,14 +59,15 @@ public class OptionsMenu extends MouseAdapter{
 	    	JButton button1 = new JButton("Confirm");
 	    	JButton button2 = new JButton("Cancel");
 	    	JTextField text = new JTextField();
+	    	JCheckBox check1 = new JCheckBox("Solid color territory");
 	    	text.setBounds(10, 40, 270, 20);
 	    	label.setBounds(10,10,200,20);
 	    	
-	    	
+	    	check1.setBounds(10, 90, 250, 20);
 	    	button1.setBounds(30, 210, 90, 30);
 	    	button2.setBounds(170, 210, 90, 30);
 	    	
-	    	
+	    	panel.add(check1);
 	    	panel.add( button2);
 	    	panel.add( button1);
 	    	panel.add(text);
@@ -90,6 +92,7 @@ public class OptionsMenu extends MouseAdapter{
 	    				System.out.println("ERROR");
 	    				
 	    			}
+	    			bw.displayTerritoryAsSolid = check1.isSelected();	    			
 	    				panel.dispose();
 	    				
 	    			}

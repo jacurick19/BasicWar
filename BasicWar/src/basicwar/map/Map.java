@@ -19,7 +19,7 @@ public class Map {
     public ArrayList<Unit> mapList = new ArrayList<Unit>();
     public ArrayList<ArrayList<ArrayList<Unit>>> map = new ArrayList<ArrayList<ArrayList<Unit>>>() ;
     public int[][] territory = new int[MAP_SIZE][MAP_SIZE] ;
-    
+    public int[][] territoryColors = new int[MAP_SIZE][MAP_SIZE] ;
     //This must be instantiated with the number of factions + 1
     public int[] territoryByFaction = new int[4];
     
@@ -37,8 +37,11 @@ public class Map {
     		
     		for(int i = 0; i < MAP_SIZE; i++) {
         		
+    			
+    			
         		for(int j = 0; j < MAP_SIZE; j++) {
             		territory[i][j] = -1;
+            		territoryColors[i][j] = 0;
             	}
         		
     	}
@@ -96,6 +99,17 @@ public class Map {
     	return toReturn;
     }
     
+    public double avergaeStrength() {
+    	double toReturn = 0;
+    	for(Unit u : mapList) {
+    		toReturn+=u.strength;
+    		
+    	}
+    	
+    	
+    	return toReturn/mapList.size();
+    	
+    }
     
     //Prints the amount of territory a faction has
     private void printArray(int[] ar) {
@@ -109,5 +123,25 @@ public class Map {
         }
     }
 
+    private int factionToHex(int faction) {
+    	int d = 0;
+    	if(faction ==0) d = 0x0DD757;
+    	if(faction ==1) d = 0xEE1414;
+    	if(faction ==2) d = 0x4286f4;
+    	if(faction ==3) d = 0xefe81f;
+    	return d;
+    }
+    
+    public void renderSolid(Screen screen){
+    	for(int i = 0; i < MAP_SIZE; i++) {
+    		for(int j = 0; j < MAP_SIZE; j++) {
+    			territoryColors[i][j] = factionToHex(territory[i][j]);
+    			//System.out.println("running");
+    		}
+    		
+    	}
+            screen.renderSolid(territoryColors);
+        
+    }
 }
 

@@ -18,6 +18,7 @@ import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.text.DecimalFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -37,6 +38,7 @@ public class BasicWar extends Canvas implements Runnable  {
     private OptionsMenu options;
     public STATE state;
     public double simSpeed = 60.0;
+    public boolean displayTerritoryAsSolid = false;
   
     public BasicWar(){
         mouse = new MouseIn();
@@ -105,6 +107,7 @@ public class BasicWar extends Canvas implements Runnable  {
 
     
     public void update(){
+    	
         if(state == STATE.RUNNING){
             map.update();
         }
@@ -147,8 +150,16 @@ public class BasicWar extends Canvas implements Runnable  {
 
         if(state == STATE.RUNNING || state== STATE.TESTING) {
         	 screen.clear();
-        	 map.render(screen);
+        	 if(!displayTerritoryAsSolid) {
+        		 map.render(screen);
+        	 }
+        	 
+        	 else {
+        		 map.renderSolid(screen);
+        		 
+        	 }
         	 g.drawString("Faction "+factionToColor(map.mostTerritory()) +" has the most territory", 300, 10);
+        	 g.drawString("Average strength:  "+new DecimalFormat("#.##").format(map.avergaeStrength()), 300, 30);
         }
         
         for (int i = 0; i < pixles.length; i++) {
@@ -179,21 +190,21 @@ public class BasicWar extends Canvas implements Runnable  {
     	if(s == STATE.RUNNING) {
     	
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+200,i+200,1, map));
+    			map.addMap(new Troop(i+225,i+225,1, map));
     		}
     		
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+300,i+200,0, map));
+    			map.addMap(new Troop(i+275,i+225,0, map));
 
     		}
     		
     		
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+200,i+300,2, map));
+    			map.addMap(new Troop(i+225,i+275,2, map));
     		}
     		
     		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+300,i+300,3, map));
+    			map.addMap(new Troop(i+275,i+275,3, map));
 
     		}
     		

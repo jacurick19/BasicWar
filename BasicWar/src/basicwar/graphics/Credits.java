@@ -1,28 +1,33 @@
 package basicwar.graphics;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+
 
 import basicwar.BasicWar;
 import basicwar.STATE;
 
+public class Credits extends MouseAdapter{
 
-
-public class Menu extends MouseAdapter{
+	String input;
 	int x,y;
 	BasicWar bw;
 	
-	public Menu(BasicWar bw) {
+	public Credits(BasicWar bw) {
 		this.bw = bw;
 		
 	}
 	
 	public void MousePressed(MouseEvent e) {
 
-	
+		 x = e.getX();
+		 y = e.getY();		
 		
 	}
 	public void MouseReleased(MouseEvent e) {
@@ -31,35 +36,29 @@ public class Menu extends MouseAdapter{
 	}
     public void update(){
     	if(x >200&&x<300) {
-    		if(y>150&&y<180) playButton();
-    		if(y>200&&y<230) testsButton();
-    		if(y>250&&y<280) optionsButton();
+    		if(y>450&&y<485) returnButton();
+    		
     	}
     	
-    	
+    	x=-2;
+    	y=-2;
 
     }
-    
-    public void playButton() {
+
     	
-    	bw.state = STATE.RUNNING;
-    	bw.setUp(STATE.RUNNING);
-    }
-    
-    public void testsButton() {
     	
-    	bw.state = STATE.TESTING;
-    	bw.setUp(STATE.TESTING);
-    }
     
-    
-    public void optionsButton() {
-    	bw.state = STATE.OPTIONS;
+    public void returnButton() {
+    	System.out.println("check");
+    	bw.state = STATE.MENU;
+    	
     	
     }
     
+    
+
     public void render(Graphics g){
-    	
+    
     	
     	g.setColor(Color.black);
     	
@@ -67,23 +66,22 @@ public class Menu extends MouseAdapter{
     	g.fillRect(0, 0, 500, 500);
     	
     	g.setColor(Color.WHITE);
-        g.drawRect(200, 150, 100, 30);
-        g.drawRect(200, 200, 100, 30);
-        g.drawRect(200, 250, 100, 30);
-        g.setFont(new Font("Arial", Font.PLAIN, 22));
-        g.drawString("Play", 205, 172);
-        g.drawString("Run Test", 205, 222);
-        g.drawString("Options", 205, 272);
+        g.drawRect(200, 450, 100, 30);
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.drawString("Created by Jacob Urick", 10, 30);
+        g.drawString("Project page https://github.com/jacurick19/BasicWar", 10, 70);
+        g.drawString("jacoburick01@gmail.com", 10, 110);
+        g.drawString("Return", 205, 470);
         
 
 
     }
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(bw.state != STATE.OPTIONS) {
-		x= arg0.getX();
-		y= arg0.getY();
-		}
+		if(bw.state == STATE.CREDITS) {
+			x= arg0.getX();
+			y= arg0.getY();
+			}
 		
 	}
 	@Override
@@ -103,8 +101,7 @@ public class Menu extends MouseAdapter{
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		x=0;
-		y=0;
-		
+		x= 0;
+		y= 0;			
 	}
 }

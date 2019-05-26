@@ -156,7 +156,6 @@ public class Troop extends Unit {
     }
     
     public Unit battle(Unit a, Unit b) {
-    	System.out.println("battle");
     	Unit winner;
     	Unit loser;
     	if(a.strength>= b.strength) { winner = a;

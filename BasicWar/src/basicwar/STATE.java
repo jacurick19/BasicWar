@@ -1,5 +1,5 @@
 package basicwar;
 
 public enum STATE {
-	 MENU, RUNNING, TESTING, OPTIONS;
+	 MENU, RUNNING, TESTING, OPTIONS, CREDITS;
 }

@@ -38,11 +38,9 @@ public class MouseIn implements MouseListener{
     }
 
 	public int getX() {
-		// TODO Auto-generated method stub
 		return x;
 	}
 	public int getY() {
-		// TODO Auto-generated method stub
 		return y;
 	}
     

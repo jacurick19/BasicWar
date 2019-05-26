@@ -2,6 +2,7 @@
 package basicwar;
 
 
+import basicwar.graphics.Credits;
 import basicwar.graphics.Menu;
 import basicwar.graphics.OptionsMenu;
 import basicwar.graphics.Screen;
@@ -23,6 +24,11 @@ import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+
+
+
+
+//TODO dont allow test and normal troops to be in the same place via problem with the options menu
 public class BasicWar extends Canvas implements Runnable  {
     private static final long serialVersionUID = 1L;
     BufferStrategy bs;
@@ -39,7 +45,7 @@ public class BasicWar extends Canvas implements Runnable  {
     public STATE state;
     public double simSpeed = 60.0;
     public boolean displayTerritoryAsSolid = false;
-  
+    private Credits credits;
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
@@ -48,8 +54,10 @@ public class BasicWar extends Canvas implements Runnable  {
         frame.addMouseListener(mouse);
         menu = new Menu(this);
         options = new OptionsMenu(this);
+        credits = new Credits(this);
         this.addMouseListener(menu);
         this.addMouseListener(options);
+        this.addMouseListener(credits);
        addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
   
@@ -120,6 +128,9 @@ public class BasicWar extends Canvas implements Runnable  {
         }
         else if(state == STATE.OPTIONS){
             options.update();
+        }
+        else if(state == STATE.CREDITS){
+            credits.update();
         }else state = STATE.MENU;
     }
     
@@ -158,13 +169,29 @@ public class BasicWar extends Canvas implements Runnable  {
         		 map.renderSolid(screen);
         		 
         	 }
+        	 
         	 g.drawString("Faction "+factionToColor(map.mostTerritory()) +" has the most territory", 300, 10);
         	 g.drawString("Average strength:  "+new DecimalFormat("#.##").format(map.avergaeStrength()), 300, 30);
+        		g.setColor(Color.BLACK);
+            	
+            	g.fillRect(400, 450, 80, 30);
+            	g.setColor(Color.WHITE);
+    	        g.drawRect(400, 450, 80, 30);
+    	        
+    	        g.setFont(new Font("Arial", Font.PLAIN, 22));
+    	        g.drawString("Options", 400, 472);
+    	        if(mouse.getX()> 400 && mouse.getX()<450) {
+    	        	 if(mouse.getY()> 450 && mouse.getY()<480) {
+    	        		 
+    	        		state = STATE.OPTIONS;
+    	        	 }
+    	        	
+    	        }
         }
         
         for (int i = 0; i < pixles.length; i++) {
             pixles[i] = screen.pixels[i];
-}
+        }
         
         
         
@@ -182,6 +209,17 @@ public class BasicWar extends Canvas implements Runnable  {
         	options.render(g);
         
         }
+        	
+        	if(state == STATE.CREDITS) {
+            	
+            	credits.render(g);
+            
+            }
+            	
+        	
+        	
+        
+	       
         bs.show();
     }
     
@@ -217,6 +255,9 @@ public class BasicWar extends Canvas implements Runnable  {
     }
     
   
+    
+    
+
 
     public static void main(String[] args) {
         BasicWar war = new BasicWar();

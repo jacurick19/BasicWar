@@ -140,7 +140,6 @@ public class Map {
     	for(int i = 0; i < MAP_SIZE; i++) {
     		for(int j = 0; j < MAP_SIZE; j++) {
     			territoryColors[i][j] = factionToHex(territory[i][j]);
-    			//System.out.println("running");
     		}
     		
     	}

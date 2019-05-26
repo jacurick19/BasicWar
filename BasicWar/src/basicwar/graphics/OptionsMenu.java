@@ -67,6 +67,8 @@ public class OptionsMenu extends MouseAdapter{
 	    	button1.setBounds(30, 210, 90, 30);
 	    	button2.setBounds(170, 210, 90, 30);
 	    	
+	    	
+	    	
 	    	panel.add(check1);
 	    	panel.add( button2);
 	    	panel.add( button1);
@@ -117,9 +119,18 @@ public class OptionsMenu extends MouseAdapter{
 	    }
 	    
 	    
-	    public void creditsButton() {System.out.println("creditsbutton");}
+	    public void creditsButton() {
+	    	bw.state = STATE.CREDITS;
+	    	}
 	    
 	    public void render(Graphics g){
+	    
+	    	
+	    	g.setColor(Color.black);
+	    	
+	    	//Make sure this (0, 0, map size, map size)
+	    	g.fillRect(0, 0, 500, 500);
+	    	
 	    	g.setColor(Color.WHITE);
 	        g.drawRect(200, 150, 100, 30);
 	        g.drawRect(200, 200, 100, 30);
@@ -134,8 +145,10 @@ public class OptionsMenu extends MouseAdapter{
 	    }
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			x= arg0.getX();
-			y= arg0.getY();
+			if(bw.state == STATE.OPTIONS) {
+				x= arg0.getX();
+				y= arg0.getY();
+				}
 			
 		}
 		@Override
@@ -155,7 +168,7 @@ public class OptionsMenu extends MouseAdapter{
 		}
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+			x= 0;
+			y= 0;			
 		}
 	}

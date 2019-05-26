@@ -138,6 +138,8 @@ public class Troop extends Unit {
         
     }
 
+    
+    //If someone else is in the same spot as you, battle
     @Override
     public void render(Screen screen) {
         if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
@@ -163,7 +165,7 @@ public class Troop extends Unit {
     	loser = a;}
     	
     	loser.die();
-    	
+    	winner.health -= health*(loser.strength / winner.strength);
     	return winner;
     	
     }

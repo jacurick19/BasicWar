@@ -8,8 +8,7 @@ import basicwar.graphics.Screen;
 import basicwar.map.Map;
 
 
-//TODO be able to change settings within program
-//TODO be able to change simulation speed
+
 //TODO look into trading
 
 public class TestTroop extends Unit {
@@ -115,8 +114,8 @@ public class TestTroop extends Unit {
 
     @Override
     public void render(Screen screen) {
-    	//System.out.println(map.mapList);
     	
+    	//If someone else is in the same spot as you, battle
     	if(!(screen.renderIsEmpty(this.x,this.y,faction))) {
         	battle(map.map);
         }
@@ -140,8 +139,7 @@ public class TestTroop extends Unit {
     	loser = a;}
     	
     	loser.die();
-    	//System.out.println("there was battle");
-    	//winner.setHealth(health* (1-(loser.strength / winner.strength))) ;
+
     	return winner;
     	
     }

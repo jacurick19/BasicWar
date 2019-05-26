@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class Map {
     public final int MAP_SIZE = 500;
     public ArrayList<Unit> mapList = new ArrayList<Unit>();
-   // public ArrayList<ArrayList<Unit>> map = new ArrayList<ArrayList<Unit>>();
     public ArrayList<ArrayList<ArrayList<Unit>>> map = new ArrayList<ArrayList<ArrayList<Unit>>>() ;
     public int[][] territory = new int[MAP_SIZE][MAP_SIZE] ;
     
@@ -98,7 +97,7 @@ public class Map {
     }
     
     
-    //Prints the ammount of territory a faction has
+    //Prints the amount of territory a faction has
     private void printArray(int[] ar) {
     	for(int i = 0; i < ar.length; i++)
     	System.out.print(" Faction: "+i+" has "+ar[i] +" *****");

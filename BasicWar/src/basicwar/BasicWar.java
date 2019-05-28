@@ -264,11 +264,13 @@ public class BasicWar extends Canvas implements Runnable  {
         war.frame.setResizable(false);
         war.frame.setTitle("war");
         war.frame.add(war);
+        System.out.println(args.length);
         war.frame.pack();
         war.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         war.frame.setLocationRelativeTo(null);
         war.frame.setVisible(true);
         war.start();
+      
         
     }
     

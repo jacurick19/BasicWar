@@ -16,12 +16,13 @@ import java.util.ArrayList;
 
 public class Map {
     public final int MAP_SIZE = 500;
+    public final int NUMBER_OF_FACTIONS = 4;
     public ArrayList<Unit> mapList = new ArrayList<Unit>();
     public ArrayList<ArrayList<ArrayList<Unit>>> map = new ArrayList<ArrayList<ArrayList<Unit>>>() ;
     public int[][] territory = new int[MAP_SIZE][MAP_SIZE] ;
+    public ArrayList<ArrayList<Territory>> territoryObjectArray = new ArrayList<ArrayList<Territory>>() ;
     public int[][] territoryColors = new int[MAP_SIZE][MAP_SIZE] ;
-    //This must be instantiated with the number of factions + 1
-    public int[] territoryByFaction = new int[4];
+    public int[] territoryByFaction = new int[NUMBER_OF_FACTIONS];
     
     
     public Map(int size){
@@ -40,11 +41,18 @@ public class Map {
     			
     			
         		for(int j = 0; j < MAP_SIZE; j++) {
+        			
             		territory[i][j] = -1;
+            		
             		territoryColors[i][j] = 0;
             	}
         		
     	}
+    		
+    		for(int i = 0; i <= NUMBER_OF_FACTIONS; i ++) {
+    			territoryObjectArray.add(new ArrayList<Territory>());
+    			
+    		}
     	
     	
     }
@@ -81,9 +89,25 @@ public class Map {
     		//Who owns each pixel is decided here
     		int ownedBy = territory[x][y];
     		if(ownedBy != faction) {
+    			territoryObjectArray.get(faction).add(new Territory(x,y));
     			territory[x][y] = faction;
     			territoryByFaction[faction] +=1;
-    			if(ownedBy >= 0) territoryByFaction[ownedBy] --;
+    			if(ownedBy >= 0) {
+    				
+    				for(int j = 0; j < territoryByFaction[ownedBy]; j++) {
+    					if(territoryObjectArray.get(ownedBy).get(j).x == x) {
+    						if(territoryObjectArray.get(ownedBy).get(j).y == y) {
+    							territoryObjectArray.get(ownedBy).remove(j);
+        						break;
+        					}
+    						
+    					}
+    					
+    				}
+    				territoryByFaction[ownedBy] --;
+    			
+    			
+    			};
     		}
     		
         }

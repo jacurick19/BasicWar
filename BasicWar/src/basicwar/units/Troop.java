@@ -101,7 +101,7 @@ public class Troop extends Unit {
     	double d = Math.max(t, c);
     	
     	if(d == a) move();
-    	if(d == c) reproduce();
+    	if(d == c) reproduceRandomly();
     	if(d == b && food >0) eat();
     	else move();
     	
@@ -193,6 +193,18 @@ public class Troop extends Unit {
     		
     	}
 		
+    	
+    }
+    
+    
+    public void reproduceRandomly() {
+    	 if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && repro >0){
+    		 int rand = random.nextInt(map.territoryObjectArray.get(faction).size());
+             food-=10;
+             repro--;;
+             map.addMap(new Troop(map.territoryObjectArray.get(faction).get(rand).x, map.territoryObjectArray.get(faction).get(rand).y, this, map));
+             drive = 0;
+         }
     	
     }
 	@Override

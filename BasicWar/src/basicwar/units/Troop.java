@@ -14,9 +14,9 @@ import basicwar.map.Map;
 public class Troop extends Unit {
     private Map map;
    private double drive = 0;
-	Random random;
+	Random random = new Random();
 	int time = 0;
-	
+	int dir = -1;
 	public int plusMinus() {
 		if(random.nextInt()%2 == 0) return 1;
 		else return -1;
@@ -36,6 +36,7 @@ public class Troop extends Unit {
     
     public Troop(int x, int y, Unit parent, Map map){
     	random = new Random();
+    	  dir = random.nextInt(4);
         this.ammo = 5;
         this.health=TROOP_HEALTH;
         this.faction = parent.faction;
@@ -58,6 +59,7 @@ public class Troop extends Unit {
     public Troop(int x, int y, int faction, Map map){
     	random = new Random();
         this.ammo = 5;
+         dir = random.nextInt(4);
         this.health=TROOP_HEALTH;
         this.faction = faction;
         this.job = "troop";
@@ -109,8 +111,10 @@ public class Troop extends Unit {
     }
 
     public void move(){
-        int dir = random.nextInt(4);
-        
+    	
+    	if(time %4 != 0) {
+    	  dir = random.nextInt(4);
+    	}
         if(dir == 0 && x<498) x++;
         if(dir == 1 && x>0) x--;
         if(dir == 2 && y< 498) y++;

@@ -23,7 +23,7 @@ public class Map {
     public ArrayList<ArrayList<Territory>> territoryObjectArray = new ArrayList<ArrayList<Territory>>() ;
     public int[][] territoryColors = new int[MAP_SIZE][MAP_SIZE] ;
     public int[] territoryByFaction = new int[NUMBER_OF_FACTIONS];
-    
+    public int[] numberPerFaction = new int[NUMBER_OF_FACTIONS];
     
     public Map(int size){
     	
@@ -49,6 +49,10 @@ public class Map {
         		
     	}
     		
+    		
+    		for(int i = 0; i < NUMBER_OF_FACTIONS; i++) {
+        		numberPerFaction[i] = 0;
+        	}
     		for(int i = 0; i <= NUMBER_OF_FACTIONS; i ++) {
     			territoryObjectArray.add(new ArrayList<Territory>());
     			
@@ -58,13 +62,17 @@ public class Map {
     }
     public void addMap(Unit unit){
         mapList.add(unit);
+        numberPerFaction[unit.faction]++;
         
     }
     public void removeMap(Unit unit){
         mapList.remove(unit);
+        numberPerFaction[unit.faction]--;
+
     }
 
     public void update(){
+    	printArray(numberPerFaction);
     	for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();
             
@@ -123,7 +131,7 @@ public class Map {
     	return toReturn;
     }
     
-    public double avergaeStrength() {
+    public double averageStrength() {
     	double toReturn = 0;
     	for(Unit u : mapList) {
     		toReturn+=u.strength;
@@ -138,7 +146,7 @@ public class Map {
     //Prints the amount of territory a faction has
     private void printArray(int[] ar) {
     	for(int i = 0; i < ar.length; i++)
-    	System.out.print(" Faction: "+i+" has "+ar[i] +" *****");
+    	System.out.print(" "+i+": " +ar[i] );
     	System.out.println();
     }
     public void render(Screen screen){

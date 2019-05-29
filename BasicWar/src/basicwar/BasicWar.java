@@ -172,7 +172,7 @@ public class BasicWar extends Canvas implements Runnable  {
         	 }
         	 
         	 g.drawString("Faction "+factionToColor(map.mostTerritory()) +" has the most territory", 300, 10);
-        	 g.drawString("Average strength:  "+new DecimalFormat("#.##").format(map.avergaeStrength()), 300, 30);
+        	 g.drawString("Average strength:  "+new DecimalFormat("#.##").format(map.averageStrength()), 300, 30);
         		g.setColor(Color.BLACK);
             	
             	g.fillRect(400, 450, 80, 30);

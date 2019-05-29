@@ -41,6 +41,7 @@ public class BasicWar extends Canvas implements Runnable  {
     private boolean running = false;
     private JFrame frame;
     private Menu menu;
+    private boolean ranOnce = false;
     private OptionsMenu options;
     public STATE state;
     public double simSpeed = 60.0;
@@ -225,7 +226,8 @@ public class BasicWar extends Canvas implements Runnable  {
     
     public void setUp(STATE s) {
     
-    	if(s == STATE.RUNNING) {
+    	if(s == STATE.RUNNING && !ranOnce) {
+    		ranOnce = true;
     	
     		for(int i = 0; i < 10; i ++){
     			map.addMap(new Troop(i+225,i+225,1, map));
@@ -247,7 +249,8 @@ public class BasicWar extends Canvas implements Runnable  {
     		}
     		
     	}
-    	if(s== STATE.TESTING) {
+    	if(s== STATE.TESTING && !ranOnce ) {
+    		ranOnce = true;
     		map.addMap(new TestTroop(100,100,1, map));
     		map.addMap(new TestTroop(104,100,0, map));
     		simSpeed = 1;

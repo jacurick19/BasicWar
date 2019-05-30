@@ -10,6 +10,8 @@ import basicwar.io.MouseIn;
 import basicwar.map.Map;
 import basicwar.units.TestTroop;
 import basicwar.units.Troop;
+import thinking.Brain;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,6 +49,7 @@ public class BasicWar extends Canvas implements Runnable  {
     public double simSpeed = 60.0;
     public boolean displayTerritoryAsSolid = false;
     private Credits credits;
+    private Brain brain = new Brain();
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
@@ -59,9 +62,9 @@ public class BasicWar extends Canvas implements Runnable  {
         this.addMouseListener(menu);
         this.addMouseListener(options);
         this.addMouseListener(credits);
-       addMouseListener(mouse);
+        addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
-  
+        
         
     }
     public synchronized void start() {

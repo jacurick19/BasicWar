@@ -72,7 +72,7 @@ public class Map {
     }
 
     public void update(){
-    	printArray(numberPerFaction);
+    	//printArray(numberPerFaction);
     	for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();
             
@@ -147,7 +147,7 @@ public class Map {
     private void printArray(int[] ar) {
     	for(int i = 0; i < ar.length; i++)
     	System.out.print(" "+i+": " +ar[i] );
-    	System.out.println();
+    //	System.out.println();
     }
     public void render(Screen screen){
         for(int i = 0; i < mapList.size(); i ++){

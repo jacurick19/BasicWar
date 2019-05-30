@@ -37,6 +37,6 @@ public abstract class Unit {
     protected int food;
     
     public String toString(){
-            return "I am a "+ job+". I am at position ("+x+", "+y+"). I have "+health+" health and my ammo supplies are: "+ammo;
+            return "I am a "+ job+" at position ("+x+", "+y+"). I have "+health+" health and my ammo supplies are: "+ammo;
     }
 }

@@ -10,20 +10,17 @@ import basicwar.io.MouseIn;
 import basicwar.map.Map;
 import basicwar.units.TestTroop;
 import basicwar.units.Troop;
-import thinking.Brain;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.text.DecimalFormat;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 

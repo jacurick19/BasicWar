@@ -82,14 +82,10 @@ public class Brain {
 			double rand = plusMinus()*random.nextDouble();
 			toReturn.add(rand);
 		}
-		System.out.println(toReturn);
 		return toReturn;
 	}
 	
-	public Action think() {
-		Action a;
-		int temp = -1;
-		
+	public Action think() {		
 		//checks to see if the input layer is empty
 		if(activation.get(0).isEmpty())System.out.println("There is a tremendous problem. Somehow think() is being called before loadData()");
 		
@@ -111,7 +107,9 @@ public class Brain {
 		}
 		
 		
-		
+		//returns the index of the largest activation
+		System.out.println("true: "+activation.get(3));
+		System.out.println(biggestMember(activation.get(3)));
 		return(intToAction(biggestMember(activation.get(3))));
 		
 	}

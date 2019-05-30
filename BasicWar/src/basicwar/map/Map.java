@@ -143,12 +143,6 @@ public class Map {
     	
     }
     
-    //Prints the amount of territory a faction has
-    private void printArray(int[] ar) {
-    	for(int i = 0; i < ar.length; i++)
-    	System.out.print(" "+i+": " +ar[i] );
-    //	System.out.println();
-    }
     public void render(Screen screen){
         for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).render(screen);

@@ -6,14 +6,18 @@ import java.util.Random;
 
 import basicwar.graphics.Screen;
 import basicwar.map.Map;
+import thinking.Brain;
 
-
+//TODO variation upon reproduction
+//TODO generations w/ survival of the fitest(1, 1, 2, 2&3)
+//TODO add settings to toggle mutation by generation, by reproduction, and with both
 // TODO look into trading
 
 
 public class Troop extends Unit {
-    private Map map;
+   private Map map;
    private double drive = 0;
+   private Brain brain;
 	Random random = new Random();
 	int time = 0;
 	int dir = -1;
@@ -45,7 +49,7 @@ public class Troop extends Unit {
         anger = 2;
         hunger = 0;
         repro = 1;
-        
+        brain = new Brain();
         food = 5;
         
         vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
@@ -64,6 +68,7 @@ public class Troop extends Unit {
         this.faction = faction;
         this.job = "troop";
         this.map = map;
+        brain = new Brain();
         anger = 2;
         hunger = 0;
         
@@ -92,25 +97,28 @@ public class Troop extends Unit {
     	}
     	
     	//Decide what they want to do
-    	double a,b,c;
-    	a = anger* agro + 1;
-    	b = (Math.exp(hunger-strength));
-    	//TODO make sure this is increasing
-    	if(vitality>0)c= reproFunction();
-    	else c =0;
-
-    	double t = Math.max(a, b);
-    	double d = Math.max(t, c);
+    	if( x> 0 && x< 499 && y>0 && y <499) {
+    		brain.loadData(map.map.get(x).get(y-1), map.map.get(x+1).get(y), map.map.get(x).get(y+1), map.map.get(x-1).get(y), anger, drive, hunger);
+    	}
+    	Action toDo = brain.think();
     	
-    	if(d == a) move();
-    	if(d == c) reproduceRandomly();
-    	if(d == b && food >0) eat();
-    	else move();
-    	
+    	switch(toDo) {
+    	case MOVE_UP : moveUp();
+    	case MOVE_RIGHT : moveRight();
+    	case MOVE_DOWN : moveDown();
+    	case MOVE_LEFT : moveLeft();
+    	case EAT : eat();
+    	case REPRODUCE : reproduceRandomly();
+    	}
     	
     }
+    
+    public void moveUp() { if(y > 0)y--;}
+    public void moveLeft() { if(x > 0)x--;}
+    public void moveDown() { if(y < 498)y++;}
+    public void moveRight() { if(x < 498)x++;}
 
-    public void move(){
+    public void moveRandom(){
     	
     	if(time %4 != 0) {
     	  dir = random.nextInt(4);
@@ -129,7 +137,6 @@ public class Troop extends Unit {
         hunger = 0;
         if(health < 10) health+=5;
         else health = TROOP_HEALTH;
-       
     }
     
     public void reproduce(){

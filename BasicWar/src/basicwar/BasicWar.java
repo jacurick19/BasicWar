@@ -49,7 +49,6 @@ public class BasicWar extends Canvas implements Runnable  {
     public double simSpeed = 60.0;
     public boolean displayTerritoryAsSolid = false;
     private Credits credits;
-    private Brain brain = new Brain();
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
@@ -64,13 +63,7 @@ public class BasicWar extends Canvas implements Runnable  {
         this.addMouseListener(credits);
         addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
-        
-        
-        
-        
-        //Tests bellow. deltete if found
-        brain.loadData(1, 1, 1, 1, 2.0, 2.0, 2.0);
-        brain.think();
+
     }
     public synchronized void start() {
 		running = true;
@@ -158,9 +151,7 @@ public class BasicWar extends Canvas implements Runnable  {
 
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
-
         	createBufferStrategy(3);
-
         	return;
 		
 		}
@@ -241,17 +232,17 @@ public class BasicWar extends Canvas implements Runnable  {
     			map.addMap(new Troop(i+225,i+225,1, map));
     		}
     		
-    		for(int i = 0; i < 10; i ++){
+    		for(int i = 0; i < 0; i ++){
     			map.addMap(new Troop(i+275,i+225,0, map));
 
     		}
     		
     		
-    		for(int i = 0; i < 10; i ++){
+    		for(int i = 0; i < 0; i ++){
     			map.addMap(new Troop(i+225,i+275,2, map));
     		}
     		
-    		for(int i = 0; i < 10; i ++){
+    		for(int i = 0; i < 0; i ++){
     			map.addMap(new Troop(i+275,i+275,3, map));
 
     		}

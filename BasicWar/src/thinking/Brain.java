@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import basicwar.units.Action;
+import basicwar.units.Unit;
 
 public class Brain {
 	//MAkes an 8x7x7x6 neural network with random weights and biases
@@ -33,13 +34,13 @@ public class Brain {
 		
 		for(int i = 1; i < 3; i ++) {
 			biases.add(i, randomArrayList(6));	
-		
+			System.out.println(randomArrayList(6));
 		}
 		
 		for(int i = 0; i < 3; i ++) {
 			ArrayList<ArrayList<Double>> toAdd = new ArrayList<ArrayList<Double>>();
 			for(int j = 0; j < activation.get(i+1).size(); j++) {
-				ArrayList temp = randomArrayList(activation.get(i).size());
+				ArrayList<Double> temp = randomArrayList(activation.get(i).size());
 				toAdd.add(temp);
 
 			}
@@ -62,10 +63,10 @@ public class Brain {
 		activation.set(0, temp);
 	}
 	
-	public int plusMinus() {
-		int temp = random.nextInt(1);
+	private int plusMinus() {
+		int temp = random.nextInt(2);
 		if (temp <1)  return 1;
-		else return 1;
+		else return -1;
 		
 	}
 	
@@ -75,12 +76,13 @@ public class Brain {
 		
 	}
 	
-	public ArrayList<Double> randomArrayList(int size){
+	private ArrayList<Double> randomArrayList(int size){
 		ArrayList<Double> toReturn = new ArrayList<>();
 		for(int i = 0 ; i < size; i ++) {
 			double rand = plusMinus()*random.nextDouble();
 			toReturn.add(rand);
 		}
+		System.out.println(toReturn);
 		return toReturn;
 	}
 	
@@ -99,21 +101,24 @@ public class Brain {
 				activation.get(i).set(j, weightedSumOfArrayList(activation.get(i-1), weights.get(i-1).get(j)));
 				
 				//apply biases
-				activation.get(i).set(j, activation.get(i-1).get(j) + biases.get(i-1).get(j));
+				activation.get(i).set(j, activation.get(i).get(j) + biases.get(i-1).get(j));
 				
 				//normalize data with sigmoid function
-				activation.get(i).set(j, sigmoid(activation.get(i-1).get(j)));
+				activation.get(i).set(j, sigmoid(activation.get(i).get(j)));
 
 			}
 			
 		}
 		
-		System.out.println(activation);
 		
-		return(intToAction(temp));
+		
+		return(intToAction(biggestMember(activation.get(3))));
 		
 	}
 	
+	public ArrayList<ArrayList<Double>> getBiases(){
+		return biases;
+	}
 	
 	public Action intToAction(int input) {
 		Action a = null;
@@ -136,7 +141,14 @@ public class Brain {
 		return toReturn;
 	}
 	
-	public Double weightedSumOfArrayList(ArrayList<Double> ar, ArrayList<Double> weights) {
+	//Returns the index of the largest value in an array of doubles
+	public int biggestMember(ArrayList<Double> ar) {
+		int toReturn = 0;
+		for(int i = 1; i < ar.size(); i ++) if(ar.get(i) > ar.get(toReturn)) toReturn = i;
+		return toReturn;
+	}
+	
+	private Double weightedSumOfArrayList(ArrayList<Double> ar, ArrayList<Double> weights) {
 		Double toReturn = 0.0;
 		for(int i = 0; i < ar.size(); i++) {
 			
@@ -145,6 +157,25 @@ public class Brain {
 		}	
 		return toReturn;
 	}
+
+	public void loadData(ArrayList<Unit> unitsUp, ArrayList<Unit> unitsRight, ArrayList<Unit> unitsDown,
+			ArrayList<Unit> unitsLeft, double anger, double drive, double hunger) {
+		ArrayList<Double> temp = new ArrayList<Double>();
+		int up = unitsUp.size();
+		int down = unitsDown.size();
+		int right = unitsRight.size();
+		int left = unitsLeft.size();
+		temp.add((double) up);
+		temp.add((double) right);
+		temp.add((double) down);
+		temp.add((double) left);
+		
+		temp.add(anger);
+		temp.add(drive);
+		temp.add(hunger);
+		activation.set(0, temp);
+	}
+		
 	
 	
 

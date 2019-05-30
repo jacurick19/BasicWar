@@ -66,6 +66,11 @@ public class BasicWar extends Canvas implements Runnable  {
         setPreferredSize(new Dimension(500,500));
         
         
+        
+        
+        //Tests bellow. deltete if found
+        brain.loadData(1, 1, 1, 1, 2.0, 2.0, 2.0);
+        brain.think();
     }
     public synchronized void start() {
 		running = true;

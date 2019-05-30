@@ -18,9 +18,9 @@ public class Brain {
 		ArrayList<Double> temp_7 = new ArrayList<Double>();
 		ArrayList<Double> temp_6 = new ArrayList<Double>();
 		
-		//fills temp_7 and temp_6 with 7 and 6 null doubles, respectively
-		for(int i = 0; i < 7; i ++) temp_7.add(i, null);
-		for(int i = 0; i < 6; i ++) temp_6.add(i, null);
+		//fills temp_7 and temp_6 with 7 and 6 0's, respectively
+		for(int i = 0; i < 7; i ++) temp_7.add(i, 0.0);
+		for(int i = 0; i < 6; i ++) temp_6.add(i, 0.0);
 
 		activation.add(0, temp_7);
 		activation.add(1, temp_7);
@@ -45,9 +45,7 @@ public class Brain {
 			}
 			weights.add(i, toAdd);
 			
-		}
-		System.out.println(weights.get(1).get(0).size());
-		
+		}		
 		
 	}
 	
@@ -89,8 +87,28 @@ public class Brain {
 	public Action think() {
 		Action a;
 		int temp = -1;
+		
+		//checks to see if the input layer is empty
 		if(activation.get(0).isEmpty())System.out.println("There is a tremendous problem. Somehow think() is being called before loadData()");
 		
+		//feeds the data through the neural network
+		for(int i = 1; i < 4; i ++) {
+			for(int j = 0; j < activation.get(i).size(); j ++) {
+				
+				//apply weights
+				activation.get(i).set(j, weightedSumOfArrayList(activation.get(i-1), weights.get(i-1).get(j)));
+				
+				//apply biases
+				activation.get(i).set(j, activation.get(i-1).get(j) + biases.get(i-1).get(j));
+				
+				//normalize data with sigmoid function
+				activation.get(i).set(j, sigmoid(activation.get(i-1).get(j)));
+
+			}
+			
+		}
+		
+		System.out.println(activation);
 		
 		return(intToAction(temp));
 		
@@ -108,6 +126,26 @@ public class Brain {
 		if(input == 5) a = Action.EAT;
 		return a;
 	}
+	
+	public Double sumOfArrayList(ArrayList<Double> ar) {
+		Double toReturn = 0.0;
+		for(Double d : ar) {
+			toReturn += d;
+			
+		}
+		return toReturn;
+	}
+	
+	public Double weightedSumOfArrayList(ArrayList<Double> ar, ArrayList<Double> weights) {
+		Double toReturn = 0.0;
+		for(int i = 0; i < ar.size(); i++) {
+			
+			toReturn += ar.get(i) * weights.get(i);
+			
+		}	
+		return toReturn;
+	}
+	
 	
 
 }

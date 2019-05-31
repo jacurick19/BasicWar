@@ -7,7 +7,7 @@ import basicwar.units.Action;
 import basicwar.units.Unit;
 
 public class Brain {
-	//MAkes an 8x7x7x6 neural network with random weights and biases
+	//Makes an 8x7x7x6 neural network with random weights and biases
 	
 	private ArrayList<ArrayList<ArrayList<Double>>> weights = new ArrayList<ArrayList<ArrayList<Double>>>();
 	private ArrayList<ArrayList<Double>> biases = new ArrayList<ArrayList<Double>>();
@@ -69,7 +69,7 @@ public class Brain {
 		activation.add(3, temp_6);
 
 
-		biases.add(0, randomArrayList(7));	
+		biases.add(0, varyRandomly(parent.getBiases().get(0)));	
 		
 		
 		for(int i = 1; i < 3; i ++) {

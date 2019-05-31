@@ -22,19 +22,23 @@ public abstract class Unit {
     public abstract void die();
     public abstract void setHealth(double health);
     public abstract void changeHealth(double health);
-    public double health;
-    public int x;
-    public int faction;
-    public int y;
-    public int ammo;
-    public double vitality;
-    public double strength;
-    public double anger;
-    public double hunger;
-    public double repro;
-    public double agro;
-    public String job;
+    private double health;
+    private int x;
+    private int faction;
+    private int y;
+    private int ammo;
+    private double vitality;
+    private double strength;
+    private double anger;
+    private double hunger;
+    private double repro;
+    private double agro;
+    private String job;
     protected int food;
+    
+    public  int getX() {
+    	return x;
+    }
     
     public String toString(){
             return "I am a "+ job+" at position ("+x+", "+y+"). I have "+health+" health and my ammo supplies are: "+ammo;

@@ -13,7 +13,7 @@ public class Brain {
 	private ArrayList<ArrayList<Double>> biases = new ArrayList<ArrayList<Double>>();
 	private ArrayList<ArrayList<Double>> activation = new ArrayList<ArrayList<Double>>();
 	private Random random = new Random();
-	
+	private final Double DELTA = 0.15;
 	public Brain() {
 		//These will be dummy arraylists to fill the activation arraylist
 		ArrayList<Double> temp_7 = new ArrayList<Double>();
@@ -33,9 +33,12 @@ public class Brain {
 		
 		
 		for(int i = 1; i < 3; i ++) {
-			biases.add(i, randomArrayList(6));	
+			biases.add(i, parent.);	
 			System.out.println(randomArrayList(6));
 		}
+		
+		
+		
 		
 		for(int i = 0; i < 3; i ++) {
 			ArrayList<ArrayList<Double>> toAdd = new ArrayList<ArrayList<Double>>();
@@ -48,6 +51,53 @@ public class Brain {
 			
 		}		
 		
+	}
+	
+	
+	public Brain(Brain parent) {
+		//These will be dummy arraylists to fill the activation arraylist
+		ArrayList<Double> temp_7 = new ArrayList<Double>();
+		ArrayList<Double> temp_6 = new ArrayList<Double>();
+		
+		//fills temp_7 and temp_6 with 7 and 6 0's, respectively
+		for(int i = 0; i < 7; i ++) temp_7.add(i, 0.0);
+		for(int i = 0; i < 6; i ++) temp_6.add(i, 0.0);
+
+		activation.add(0, temp_7);
+		activation.add(1, temp_7);
+		activation.add(2, temp_6);
+		activation.add(3, temp_6);
+
+
+		biases.add(0, randomArrayList(7));	
+		
+		
+		for(int i = 1; i < 3; i ++) {
+			biases.add(i, varyRandomly(parent.getBiases().get(i)));	
+		}
+		
+		
+		
+		
+		for(int i = 0; i < 3; i ++) {
+			ArrayList<ArrayList<Double>> toAdd = new ArrayList<ArrayList<Double>>();
+			for(int j = 0; j < activation.get(i+1).size(); j++) {
+				ArrayList<Double> temp = varyRandomly(parent.getWeights().get(i).get(j));
+				toAdd.add(temp);
+			}
+			weights.add(i, toAdd);
+			
+		}		
+		
+	}
+	
+	public ArrayList<Double> varyRandomly(ArrayList<Double> ar ) {
+		ArrayList<Double> toReturn = new ArrayList<Double>();
+		for(int i = 0; i < ar.size(); i ++) {
+			toReturn.add(ar.get(i) + plusMinus()*DELTA);
+			
+		}
+		return toReturn;
 	}
 	
 	public void loadData(int up, int right, int down, int left, double anger, double drive, double hunger) {
@@ -108,14 +158,16 @@ public class Brain {
 		
 		
 		//returns the index of the largest activation
-		System.out.println("true: "+activation.get(3));
-		System.out.println(biggestMember(activation.get(3)));
 		return(intToAction(biggestMember(activation.get(3))));
 		
 	}
 	
 	public ArrayList<ArrayList<Double>> getBiases(){
 		return biases;
+	}
+	
+	public ArrayList<ArrayList<ArrayList<Double>>> getWeights(){
+		return weights;
 	}
 	
 	public Action intToAction(int input) {

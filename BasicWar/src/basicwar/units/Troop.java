@@ -49,7 +49,7 @@ public class Troop extends Unit {
         anger = 2;
         hunger = 0;
         repro = 1;
-        brain = new Brain();
+        brain = new Brain(parent.getBrain());
         food = 5;
         
         vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
@@ -112,7 +112,9 @@ public class Troop extends Unit {
     	}
     	
     }
-    
+    public Brain getBrain() {
+    	return brain;
+    }
     public void moveUp() { if(y > 0)y--;}
     public void moveLeft() { if(x > 0)x--;}
     public void moveDown() { if(y < 498)y++;}

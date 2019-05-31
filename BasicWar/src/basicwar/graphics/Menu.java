@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import basicwar.BasicWar;
+import basicwar.GENSTATE;
 import basicwar.STATE;
 
 
@@ -41,15 +42,15 @@ public class Menu extends MouseAdapter{
     }
     
     public void playButton() {
-    	
+    	bw.genstate = GENSTATE.FIRST_RUN;
     	bw.state = STATE.RUNNING;
-    	bw.setUp(STATE.RUNNING);
+    	bw.setUp();
     }
     
     public void testsButton() {
     	
     	bw.state = STATE.TESTING;
-    	bw.setUp(STATE.TESTING);
+//    	bw.setUp(STATE.TESTING);
     }
     
     

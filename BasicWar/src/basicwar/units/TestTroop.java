@@ -175,8 +175,14 @@ public class TestTroop extends Unit {
 		
 	}
 	@Override
-	public void returnToCenter() {
+	public void disperse() {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void condense() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

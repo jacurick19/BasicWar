@@ -10,6 +10,7 @@
 package basicwar.map;
 
 import basicwar.BasicWar;
+import basicwar.GENSTATE;
 import basicwar.STATE;
 import basicwar.graphics.Screen;
 import basicwar.units.TestTroop;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 
 
 public class Map {
+	boolean setSomeUp = false;
+
 	private boolean ranOnce = false;
     public final int MAP_SIZE = 500;
     public final int NUMBER_OF_FACTIONS = 4;
@@ -73,13 +76,15 @@ public class Map {
     
     public void returnToCenter() {
     	for(int i = 0; i < mapList.size(); i ++){
-            mapList.get(i).returnToCenter();
+            mapList.get(i).condense();
         }
     	
     }
 
     public void update(){
     	//printArray(numberPerFaction);
+    	System.out.println("working");
+
     	for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();
             
@@ -126,6 +131,8 @@ public class Map {
     		}
     		
         }
+    	
+    	if(threeAreZero(numberPerFaction)) bw.genstate = GENSTATE.RESET;
     }
     
     //Returns the faction with the most territory
@@ -181,28 +188,20 @@ public class Map {
     }
     
     
-    public void setUp(STATE s) {
-        
+    public void setUp(STATE s, boolean tr) {
     	if(s == STATE.RUNNING && !ranOnce) {
     		ranOnce = true;
-    	
     		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+225,i+225,1, this));
     		}
-    		
     		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+275,i+225,0, this));
-
     		}
-    		
-    		
     		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+225,i+275,2, this));
     		}
-    		
     		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+275,i+275,3, this));
-
     		}
     		
     	}
@@ -213,5 +212,126 @@ public class Map {
     		bw.setSimSpeed(1);
     	}
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void setUp(ArrayList<Unit> winners, ArrayList<Unit> second, ArrayList<Unit> third) {
+    	boolean done = false;
+    	if(bw.genstate == GENSTATE.FIRST_RUN && !ranOnce) {
+        	System.out.println("first setup");
+        	done = true;
+    		ranOnce = true;
+    		setSomeUp = true;
+    		for(int i = 0; i < 1; i ++){
+    			addMap(new Troop(i+225,i+225,1, this));
+    		}
+    		for(int i = 0; i < 0; i ++){
+    			addMap(new Troop(i+275,i+225,0, this));
+    		}
+    		for(int i = 0; i < 0; i ++){
+    			addMap(new Troop(i+225,i+275,2, this));
+    		}
+    		for(int i = 0; i < 0; i ++){
+    			addMap(new Troop(i+275,i+275,3, this));
+    		}
+    	}
+    	
+    	if(bw.genstate == GENSTATE.SET_UP) {
+        	System.out.println("second setup");
+
+    		setSomeUp = true;
+    		for(int i = 0; i < 10; i ++){
+    			addMap(new Troop(251,249,1, this));
+    		}
+    		for(int i = 0; i < 10; i ++){
+    			addMap(new Troop(249,i+249,0, this));
+    		}
+    		for(int i = 0; i < 10; i ++){
+    			addMap(new Troop(251,i+251,2, this));
+    		}
+    		for(int i = 0; i < 10; i ++){
+    			addMap(new Troop(249,251,3, this));
+    		}
+    	}
+    	
+    	
+    	
+    	if(setSomeUp == true && done == false) {
+    		for(int i = 0; i < mapList.size(); i ++){
+                mapList.get(i).disperse();
+            }
+    	}
+    	done = true;
+    	for (int i = 0; i < mapList.size(); i ++) {
+    		done = (mapList.get(i).getDispersed() && done);
+
+    	}
+    	if(done)bw.genstate = GENSTATE.WORK;
+    	
+    	
+    }
+
+    public void reset() {
+    	System.out.println("resetting");
+
+    	//needed for setUp()
+    	setSomeUp = false;
+    	for(int i = 0; i < mapList.size(); i ++){
+            mapList.get(i).condense();
+        }
+    	
+    	bw.genstate = GENSTATE.SET_UP;
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	//Returns true if 3 of the values of the input array are 0
+	public boolean threeAreZero(int[] ar) {
+		boolean toReturn = false;
+		int temp = 0;
+		for(int i : ar)if(i == 0) temp++;
+		if(temp >2) toReturn= true;
+		return toReturn;
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 

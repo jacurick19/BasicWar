@@ -12,9 +12,12 @@ import thinking.Brain;
 //TODO add settings to toggle mutation by generation, by reproduction, and with both
 // TODO look into trading
 
+//TODO make a constructor so a troop can be the average of an arraylist of troops with random variation
+//TODO average strength is broken
 
 public class Troop extends Unit {
    private Map map;
+   public boolean dispersed = false;
    private double drive = 0;
    private Brain brain;
 	Random random = new Random();
@@ -83,16 +86,14 @@ public class Troop extends Unit {
     
     public void act(){
     	//Die of natural causes
-    	if(time > (strength*50)) {
-    		//die();
-    	}
+    	if(time > (strength*100))die();
     	//die if you have no health
-    	if(health<0) //die();
+    	if(health<0) die();
     	
     	//Starve
     	if(hunger>10) { 
-    	hunger+=10;
-    	health-=1;
+    		hunger+=10;
+    		health-=1;
     	}
     	
     	//Decide what they want to do
@@ -100,37 +101,27 @@ public class Troop extends Unit {
     		brain.loadData(map.map.get(x).get(y-1), map.map.get(x+1).get(y), map.map.get(x).get(y+1), map.map.get(x-1).get(y), anger, drive, hunger);
     	}
     	Action toDo = brain.think();
-    	//System.out.println(toDo);    	
     	switch(toDo) {
-    	case MOVE_UP : moveUp(); break;//System.out.println(toDo);
-    	case MOVE_RIGHT : moveRight(); break;
-    	case MOVE_DOWN : moveDown(); break;
-    	case MOVE_LEFT : moveLeft(); break; 
-    	case EAT : eat(); break;
-    	case REPRODUCE : reproduceRandomly(); break;
+    		case MOVE_UP : moveUp(); break;
+    		case MOVE_RIGHT : moveRight(); break;
+    		case MOVE_DOWN : moveDown(); break;
+    		case MOVE_LEFT : moveLeft(); break; 
+    		case EAT : eat(); break;
+    		case REPRODUCE : reproduceRandomly(); break;
     	}
     	
     }
     public Brain getBrain() {
     	return brain;
     }
-    public void moveUp() { if(y > 0)y--;
-    
-   ;}
+    public void moveUp() { if(y > 0)y--;}
     public void moveLeft() { if(x > 0)x--;}
-    public void moveDown() { if(y < 498)y++;
-    
-    System.out.println("move down called");
-    }
-    public void moveRight() { if(x < 498)x++;
-   // System.out.println("move right called");
-   ;}
+    public void moveDown() { if(y < 498)y++;}
+    public void moveRight() { if(x < 498)x++;}
 
     public void moveRandom(){
     	
-    	if(time %4 != 0) {
-    	  dir = random.nextInt(4);
-    	}
+    	if(time %4 != 0) dir = random.nextInt(4);
         if(dir == 0 && x<498) x++;
         if(dir == 1 && x>0) x--;
         if(dir == 2 && y< 498) y++;
@@ -192,6 +183,59 @@ public class Troop extends Unit {
     	
     }
     
+    public boolean getDispersed() {
+    	return dispersed;
+    }
+    
+    public void disperse() {
+    	
+    	//TODO
+    	if(faction == 0) {
+    		if(x == 200 && y ==200) dispersed = true;
+    		if(x > 200) x--;
+    		if(x < 200) x++;
+    		if(y < 200) y++;
+    		if(y > 200) y--;
+    		
+    	}
+    	if(faction == 1) {
+    		
+    		if(x == 300 && y ==200) dispersed = true;
+    		if(x > 300) x--;
+    		if(x < 300) x++;
+    		if(y < 200) y++;
+    		if(y > 200) y--;
+    	}
+    	if(faction == 2) {
+    		if(x == 200 && y ==300) dispersed = true;
+    		if(x > 200) x--;
+    		if(x < 200) x++;
+    		if(y < 300) y++;
+    		if(y > 300) y--;
+	
+    	}
+    	if(faction == 3) {
+    		if(x == 300 && y ==300) dispersed = true;
+    		if(x > 300) x--;
+    		if(x < 300) x++;
+    		if(y < 300) y++;
+    		if(y > 300) y--;
+    	}
+    	
+    		
+    		
+    		
+    	
+    }
+    
+    public void condense() {
+    	
+    	if(x > 250) x--;
+		if(x < 250) x++;
+		if(y < 250) y++;
+		if(y > 250) y--;
+    }
+    
     public void setHealth(double hea) {
     	health = hea;
     	
@@ -227,16 +271,7 @@ public class Troop extends Unit {
 	@Override
 	public void die() {
 		map.removeMap(this);
-		
 	}
 	
-	@Override
-	public void returnToCenter() {
-		while(x > 250) x--;
-		while(x < 250) x++;
-		while(y < 250) y++;
-		while(y > 250) y--;
-		
-		
-	}
+	
 }

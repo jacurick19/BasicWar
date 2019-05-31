@@ -47,7 +47,7 @@ public class BasicWar extends Canvas implements Runnable  {
     public boolean displayTerritoryAsSolid = false;
     private Credits credits;
     private int numberOfGenerations = 20;
-    private Generation generation;
+    public GENSTATE genstate = GENSTATE.FIRST_RUN;
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
@@ -62,7 +62,7 @@ public class BasicWar extends Canvas implements Runnable  {
         this.addMouseListener(credits);
         addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
-        generation = new Generation(10, 10, 10, 10, map);
+        
     }
     public synchronized void start() {
 		running = true;
@@ -122,7 +122,11 @@ public class BasicWar extends Canvas implements Runnable  {
     public void update(){
     	
         if(state == STATE.RUNNING){
-            map.update();
+        	for(int i = 0; i < numberOfGenerations; i ++) {
+
+        		runGeneration();
+        	}
+//            map.update();
         }
         
         else if(state == STATE.MENU){
@@ -212,6 +216,38 @@ public class BasicWar extends Canvas implements Runnable  {
 	   simSpeed = n;
    }
     
+    
+
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    public void runGeneration() {
+    		if(genstate == GENSTATE.FIRST_RUN) map.setUp(null, null, null);
+    		if(genstate == GENSTATE.SET_UP) map.setUp(null, null, null);
+    		if(genstate == GENSTATE.WORK) map.update();
+    		if(genstate == GENSTATE.RESET) map.reset();
+    		
+    	
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public void setUp() {map.setUp(null,null,null);}
+    
+    
+    
   
     
     
@@ -231,8 +267,6 @@ public class BasicWar extends Canvas implements Runnable  {
       
         
     }
-	public void setUp(STATE s) {
-		map.setUp(s);
-	}
+
     
 }

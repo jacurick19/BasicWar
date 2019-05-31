@@ -150,6 +150,8 @@ public class Troop extends Unit {
     //If someone else is in the same spot as you, battle
     @Override
     public void render(Screen screen) {
+    	System.out.println("working");
+
         if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
      
         ;

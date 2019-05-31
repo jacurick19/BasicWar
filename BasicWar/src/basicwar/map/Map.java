@@ -232,16 +232,16 @@ public class Map {
         	done = true;
     		ranOnce = true;
     		setSomeUp = true;
-    		for(int i = 0; i < 1; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+225,i+225,1, this));
     		}
-    		for(int i = 0; i < 0; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+275,i+225,0, this));
     		}
-    		for(int i = 0; i < 0; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+225,i+275,2, this));
     		}
-    		for(int i = 0; i < 0; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+275,i+275,3, this));
     		}
     	}

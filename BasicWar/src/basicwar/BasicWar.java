@@ -122,10 +122,10 @@ public class BasicWar extends Canvas implements Runnable  {
     public void update(){
     	
         if(state == STATE.RUNNING){
-        	for(int i = 0; i < numberOfGenerations; i ++) {
+        	
 
         		runGeneration();
-        	}
+        	
 //            map.update();
         }
         

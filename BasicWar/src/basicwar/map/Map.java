@@ -62,12 +62,12 @@ public class Map {
     }
     public void addMap(Unit unit){
         mapList.add(unit);
-        numberPerFaction[unit.faction]++;
+        numberPerFaction[unit.getFaction()]++;
         
     }
     public void removeMap(Unit unit){
         mapList.remove(unit);
-        numberPerFaction[unit.faction]--;
+        numberPerFaction[unit.getFaction()]--;
 
     }
 
@@ -89,9 +89,9 @@ public class Map {
     	}
     	
     	for(int i = 0; i < mapList.size(); i ++){
-    		int x = mapList.get(i).x;
-    		int y = mapList.get(i).y;
-    		int faction = mapList.get(i).faction;
+    		int x = mapList.get(i).getX();
+    		int y = mapList.get(i).getY();
+    		int faction = mapList.get(i).getFaction();
     		map.get(x).get(y).add(mapList.get(i));
  
     		//Who owns each pixel is decided here
@@ -134,7 +134,7 @@ public class Map {
     public double averageStrength() {
     	double toReturn = 0;
     	for(Unit u : mapList) {
-    		toReturn+=u.strength;
+    		toReturn+=u.getStrength();
     		
     	}
     	

@@ -24,9 +24,7 @@ public class Map {
     public int[][] territoryColors = new int[MAP_SIZE][MAP_SIZE] ;
     public int[] territoryByFaction = new int[NUMBER_OF_FACTIONS];
     public int[] numberPerFaction = new int[NUMBER_OF_FACTIONS];
-    
     public Map(int size){
-    	
     	//Make the map ArrayList an ArrayList that contains 500 ArrayLists of 500 ArrayLists that each holds the units at that location
     	for(int i = 0; i < MAP_SIZE; i++) {
     		ArrayList<ArrayList<Unit>> toAdd = new ArrayList<ArrayList<Unit>>();
@@ -35,15 +33,9 @@ public class Map {
         	}
     		map.add(i, toAdd);
     	}
-    		
     		for(int i = 0; i < MAP_SIZE; i++) {
-        		
-    			
-    			
         		for(int j = 0; j < MAP_SIZE; j++) {
-        			
             		territory[i][j] = -1;
-            		
             		territoryColors[i][j] = 0;
             	}
         		
@@ -62,12 +54,12 @@ public class Map {
     }
     public void addMap(Unit unit){
         mapList.add(unit);
-        numberPerFaction[unit.faction]++;
+        numberPerFaction[unit.getFaction()]++;
         
     }
     public void removeMap(Unit unit){
         mapList.remove(unit);
-        numberPerFaction[unit.faction]--;
+        numberPerFaction[unit.getFaction()]--;
 
     }
 
@@ -89,9 +81,9 @@ public class Map {
     	}
     	
     	for(int i = 0; i < mapList.size(); i ++){
-    		int x = mapList.get(i).x;
-    		int y = mapList.get(i).y;
-    		int faction = mapList.get(i).faction;
+    		int x = mapList.get(i).getX();
+    		int y = mapList.get(i).getY();
+    		int faction = mapList.get(i).getFaction();
     		map.get(x).get(y).add(mapList.get(i));
  
     		//Who owns each pixel is decided here
@@ -134,7 +126,7 @@ public class Map {
     public double averageStrength() {
     	double toReturn = 0;
     	for(Unit u : mapList) {
-    		toReturn+=u.strength;
+    		toReturn+=u.getStrength();
     		
     	}
     	

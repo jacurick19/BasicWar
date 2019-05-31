@@ -33,8 +33,8 @@ public class Brain {
 		
 		
 		for(int i = 1; i < 3; i ++) {
-			biases.add(i, parent.);	
-			System.out.println(randomArrayList(6));
+			biases.add(i, randomArrayList(6));	
+			
 		}
 		
 		
@@ -132,6 +132,12 @@ public class Brain {
 			double rand = plusMinus()*random.nextDouble();
 			toReturn.add(rand);
 		}
+		return toReturn;
+	}
+	
+	public Double differenceBetweenArrayLists(ArrayList<Double> one, ArrayList<Double> two) {
+		double toReturn = 0;
+		toReturn = sumOfArrayList(one) - sumOfArrayList(two);
 		return toReturn;
 	}
 	

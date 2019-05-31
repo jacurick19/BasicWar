@@ -8,7 +8,6 @@ import basicwar.graphics.Screen;
 import basicwar.map.Map;
 import thinking.Brain;
 
-//TODO variation upon reproduction
 //TODO generations w/ survival of the fitest(1, 1, 2, 2&3)
 //TODO add settings to toggle mutation by generation, by reproduction, and with both
 // TODO look into trading
@@ -149,9 +148,7 @@ public class Troop extends Unit {
             drive = 0;
         }
         
-    }
-
-    
+    }    
     //If someone else is in the same spot as you, battle
     @Override
     public void render(Screen screen) {

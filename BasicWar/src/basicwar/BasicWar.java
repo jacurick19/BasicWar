@@ -47,6 +47,7 @@ public class BasicWar extends Canvas implements Runnable  {
     public boolean displayTerritoryAsSolid = false;
     private Credits credits;
     private int numberOfGenerations = 20;
+    private Generation generation;
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
@@ -61,7 +62,7 @@ public class BasicWar extends Canvas implements Runnable  {
         this.addMouseListener(credits);
         addMouseListener(mouse);
         setPreferredSize(new Dimension(500,500));
-
+        generation = new Generation(10, 10, 10, 10, map);
     }
     public synchronized void start() {
 		running = true;

@@ -190,17 +190,17 @@ public class Map {
     			addMap(new Troop(i+225,i+225,1, this));
     		}
     		
-    		for(int i = 0; i < 0; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+275,i+225,0, this));
 
     		}
     		
     		
-    		for(int i = 0; i < 0; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+225,i+275,2, this));
     		}
     		
-    		for(int i = 0; i < 0; i ++){
+    		for(int i = 0; i < 10; i ++){
     			addMap(new Troop(i+275,i+275,3, this));
 
     		}

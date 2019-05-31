@@ -84,10 +84,10 @@ public class Troop extends Unit {
     public void act(){
     	//Die of natural causes
     	if(time > (strength*50)) {
-    		die();
+    		//die();
     	}
     	//die if you have no health
-    	if(health<0) die();
+    	if(health<0) //die();
     	
     	//Starve
     	if(hunger>10) { 
@@ -100,24 +100,31 @@ public class Troop extends Unit {
     		brain.loadData(map.map.get(x).get(y-1), map.map.get(x+1).get(y), map.map.get(x).get(y+1), map.map.get(x-1).get(y), anger, drive, hunger);
     	}
     	Action toDo = brain.think();
-    	
+    	//System.out.println(toDo);    	
     	switch(toDo) {
-    	case MOVE_UP : moveUp();
-    	case MOVE_RIGHT : moveRight();
-    	case MOVE_DOWN : moveDown();
-    	case MOVE_LEFT : moveLeft();
-    	case EAT : eat();
-    	case REPRODUCE : reproduceRandomly();
+    	case MOVE_UP : moveUp(); break;//System.out.println(toDo);
+    	case MOVE_RIGHT : moveRight(); break;
+    	case MOVE_DOWN : moveDown(); break;
+    	case MOVE_LEFT : moveLeft(); break; 
+    	case EAT : eat(); break;
+    	case REPRODUCE : reproduceRandomly(); break;
     	}
     	
     }
     public Brain getBrain() {
     	return brain;
     }
-    public void moveUp() { if(y > 0)y--;}
+    public void moveUp() { if(y > 0)y--;
+    
+   ;}
     public void moveLeft() { if(x > 0)x--;}
-    public void moveDown() { if(y < 498)y++;}
-    public void moveRight() { if(x < 498)x++;}
+    public void moveDown() { if(y < 498)y++;
+    
+    System.out.println("move down called");
+    }
+    public void moveRight() { if(x < 498)x++;
+   // System.out.println("move right called");
+   ;}
 
     public void moveRandom(){
     	
@@ -222,6 +229,7 @@ public class Troop extends Unit {
 		map.removeMap(this);
 		
 	}
+	
 	@Override
 	public void returnToCenter() {
 		while(x > 250) x--;

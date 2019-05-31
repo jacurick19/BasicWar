@@ -188,7 +188,6 @@ public class BasicWar extends Canvas implements Runnable  {
     	        		 
     	        		state = STATE.OPTIONS;
     	        	 }
-    	        	
     	        }
         }
         
@@ -196,38 +195,20 @@ public class BasicWar extends Canvas implements Runnable  {
             pixles[i] = screen.pixels[i];
         }
         
-        
-        
-        
-      
-        
-       
         if(state == STATE.MENU) {
-        	
         	menu.render(g);
-        
         }
-        	if(state == STATE.OPTIONS) {
-        	
+        if(state == STATE.OPTIONS) {
         	options.render(g);
-        
         }
         	
-        	if(state == STATE.CREDITS) {
-            	
+        if(state == STATE.CREDITS) {
             	credits.render(g);
-            
-            }
-            	
-        	
-        	
-        
-	       
+        }
         bs.show();
     }
     
-   public void setSimSpeed(int n) {
-	   
+    public void setSimSpeed(int n) {
 	   simSpeed = n;
    }
     

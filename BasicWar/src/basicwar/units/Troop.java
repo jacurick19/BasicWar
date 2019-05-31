@@ -222,4 +222,13 @@ public class Troop extends Unit {
 		map.removeMap(this);
 		
 	}
+	@Override
+	public void returnToCenter() {
+		while(x > 250) x--;
+		while(x < 250) x++;
+		while(y < 250) y++;
+		while(y > 250) y--;
+		
+		
+	}
 }

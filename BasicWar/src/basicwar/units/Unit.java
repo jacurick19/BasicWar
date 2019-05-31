@@ -23,6 +23,7 @@ public abstract class Unit {
     public abstract void die();
     public abstract void setHealth(double health);
     public abstract void changeHealth(double health);
+	public abstract void returnToCenter();
     protected double health;
     protected int x;
     protected int faction;
@@ -56,4 +57,6 @@ public abstract class Unit {
 	public int getFaction() {
 		return faction;
 	}
+	
 }
+

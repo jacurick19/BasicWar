@@ -46,10 +46,11 @@ public class BasicWar extends Canvas implements Runnable  {
     public double simSpeed = 60.0;
     public boolean displayTerritoryAsSolid = false;
     private Credits credits;
+    private int numberOfGenerations = 20;
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
-        map = new Map(500);
+        map = new Map(500, this);
         frame = new JFrame();
         frame.addMouseListener(mouse);
         menu = new Menu(this);
@@ -78,6 +79,10 @@ public class BasicWar extends Canvas implements Runnable  {
 		}
 	}
     
+	public void setState(STATE s) {
+		
+		state = s;
+	}
     public void run(){
 
         long lastTime = System.nanoTime();
@@ -220,38 +225,10 @@ public class BasicWar extends Canvas implements Runnable  {
         bs.show();
     }
     
-    public void setUp(STATE s) {
-    
-    	if(s == STATE.RUNNING && !ranOnce) {
-    		ranOnce = true;
-    	
-    		for(int i = 0; i < 10; i ++){
-    			map.addMap(new Troop(i+225,i+225,1, map));
-    		}
-    		
-    		for(int i = 0; i < 0; i ++){
-    			map.addMap(new Troop(i+275,i+225,0, map));
-
-    		}
-    		
-    		
-    		for(int i = 0; i < 0; i ++){
-    			map.addMap(new Troop(i+225,i+275,2, map));
-    		}
-    		
-    		for(int i = 0; i < 0; i ++){
-    			map.addMap(new Troop(i+275,i+275,3, map));
-
-    		}
-    		
-    	}
-    	if(s== STATE.TESTING && !ranOnce ) {
-    		ranOnce = true;
-    		map.addMap(new TestTroop(100,100,1, map));
-    		map.addMap(new TestTroop(104,100,0, map));
-    		simSpeed = 1;
-    	}
-    }
+   public void setSimSpeed(int n) {
+	   
+	   simSpeed = n;
+   }
     
   
     
@@ -272,5 +249,8 @@ public class BasicWar extends Canvas implements Runnable  {
       
         
     }
+	public void setUp(STATE s) {
+		map.setUp(s);
+	}
     
 }

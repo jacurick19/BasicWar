@@ -174,4 +174,9 @@ public class TestTroop extends Unit {
 		map.removeMap(this);
 		
 	}
+	@Override
+	public void returnToCenter() {
+		// TODO Auto-generated method stub
+		
+	}
 }

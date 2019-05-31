@@ -9,12 +9,17 @@
  */
 package basicwar.map;
 
+import basicwar.BasicWar;
+import basicwar.STATE;
 import basicwar.graphics.Screen;
+import basicwar.units.TestTroop;
+import basicwar.units.Troop;
 import basicwar.units.Unit;
 import java.util.ArrayList;
 
 
 public class Map {
+	private boolean ranOnce = false;
     public final int MAP_SIZE = 500;
     public final int NUMBER_OF_FACTIONS = 4;
     public ArrayList<Unit> mapList = new ArrayList<Unit>();
@@ -24,7 +29,10 @@ public class Map {
     public int[][] territoryColors = new int[MAP_SIZE][MAP_SIZE] ;
     public int[] territoryByFaction = new int[NUMBER_OF_FACTIONS];
     public int[] numberPerFaction = new int[NUMBER_OF_FACTIONS];
-    public Map(int size){
+    public ArrayList<Integer> factionsAlive = new ArrayList<Integer>();
+    private BasicWar bw;
+    public Map(int size, BasicWar bw){
+    	this.bw = bw;
     	//Make the map ArrayList an ArrayList that contains 500 ArrayLists of 500 ArrayLists that each holds the units at that location
     	for(int i = 0; i < MAP_SIZE; i++) {
     		ArrayList<ArrayList<Unit>> toAdd = new ArrayList<ArrayList<Unit>>();
@@ -61,6 +69,13 @@ public class Map {
         mapList.remove(unit);
         numberPerFaction[unit.getFaction()]--;
 
+    }
+    
+    public void returnToCenter() {
+    	for(int i = 0; i < mapList.size(); i ++){
+            mapList.get(i).returnToCenter();
+        }
+    	
     }
 
     public void update(){
@@ -163,6 +178,40 @@ public class Map {
     	}
             screen.renderSolid(territoryColors);
         
+    }
+    
+    
+    public void setUp(STATE s) {
+        
+    	if(s == STATE.RUNNING && !ranOnce) {
+    		ranOnce = true;
+    	
+    		for(int i = 0; i < 10; i ++){
+    			addMap(new Troop(i+225,i+225,1, this));
+    		}
+    		
+    		for(int i = 0; i < 0; i ++){
+    			addMap(new Troop(i+275,i+225,0, this));
+
+    		}
+    		
+    		
+    		for(int i = 0; i < 0; i ++){
+    			addMap(new Troop(i+225,i+275,2, this));
+    		}
+    		
+    		for(int i = 0; i < 0; i ++){
+    			addMap(new Troop(i+275,i+275,3, this));
+
+    		}
+    		
+    	}
+    	if(s== STATE.TESTING && !ranOnce ) {
+    		ranOnce = true;
+    		addMap(new TestTroop(100,100,1, this));
+    		addMap(new TestTroop(104,100,0, this));
+    		bw.setSimSpeed(1);
+    	}
     }
 }
 

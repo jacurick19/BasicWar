@@ -249,7 +249,9 @@ public class Map {
     	public int plusMinus() {
     		Random random = new Random();
     	
-    		if(random.nextInt()%2 == 0) return 1;
+    		int check = random.nextInt();
+    		if(check%3 == 0) return 1;
+    		if(check%3 ==1 ) return 0;
     		else return -1;
     	}
     

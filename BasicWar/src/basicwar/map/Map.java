@@ -16,10 +16,15 @@ import basicwar.graphics.Screen;
 import basicwar.units.TestTroop;
 import basicwar.units.Troop;
 import basicwar.units.Unit;
+import thinking.Brain;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Map {
+	private static final double DELTA = 0.15;
+
 	boolean setSomeUp = false;
 
 	private boolean ranOnce = false;
@@ -217,6 +222,22 @@ public class Map {
     
     
     
+    //takes an arraylist of units and creates an average unit from it, randomly mutated
+    public Unit calculateAvg(ArrayList<Unit> ar) {
+    	double strength = 0;
+    	double vitality = 0;
+    	double agression = 0;
+    	for(Unit u : ar) {
+    		strength += ((u.getStrength()) + DELTA*plusMinus());
+    		vitality+=(u.getVitality() +DELTA*plusMinus());
+    		agression += (u.getAgression() +DELTA*plusMinus());
+    	}
+    	strength /= ar.size();
+    	vitality /= ar.size();
+    	agression /= ar.size();
+    	//TODO this should not be new Brain(). it should be based on the average
+    	return new Troop(strength, vitality, agression, new Brain(), this);
+    	}
     
     
     
@@ -225,7 +246,15 @@ public class Map {
     
     
     
-    public void setUp(ArrayList<Unit> winners, ArrayList<Unit> second, ArrayList<Unit> third) {
+    	public int plusMinus() {
+    		Random random = new Random();
+    	
+    		if(random.nextInt()%2 == 0) return 1;
+    		else return -1;
+    	}
+    
+	
+	public void setUp(ArrayList<Unit> winners, ArrayList<Unit> second, ArrayList<Unit> third) {
     	boolean done = false;
     	if(bw.genstate == GENSTATE.FIRST_RUN && !ranOnce) {
         	System.out.println("first setup");

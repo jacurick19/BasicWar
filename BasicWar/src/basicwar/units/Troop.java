@@ -38,7 +38,18 @@ public class Troop extends Unit {
     	
     }
     
-    
+    //TODO brain
+    public Troop(double strength, double vitality, double agro, Brain br, Map map) {
+    	random = new Random();
+
+        this.map = map;
+        this.strength = strength;
+        this.vitality = vitality;
+        this.agro = agro;
+    	this.health = TROOP_HEALTH;
+    	this.brain = br;
+    	
+    }
     
     public Troop(int x, int y, Unit parent, Map map){
     	random = new Random();

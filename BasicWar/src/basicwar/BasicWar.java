@@ -10,6 +10,7 @@ import basicwar.io.MouseIn;
 import basicwar.map.Map;
 import basicwar.units.TestTroop;
 import basicwar.units.Troop;
+import basicwar.units.Unit;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -48,6 +49,7 @@ public class BasicWar extends Canvas implements Runnable  {
     private Credits credits;
     private int numberOfGenerations = 20;
     public GENSTATE genstate = GENSTATE.FIRST_RUN;
+   
     public BasicWar(){
         mouse = new MouseIn();
         screen = new Screen(500);
@@ -118,7 +120,7 @@ public class BasicWar extends Canvas implements Runnable  {
         stop();
     }
 
-    
+
     public void update(){
     	
         if(state == STATE.RUNNING){
@@ -128,6 +130,8 @@ public class BasicWar extends Canvas implements Runnable  {
         	
 //            map.update();
         }
+        
+        
         
         else if(state == STATE.MENU){
             menu.update();

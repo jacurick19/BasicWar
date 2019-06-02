@@ -51,7 +51,7 @@ public abstract class Unit {
     }
 	public double getStrength() {
 		// TODO Auto-generated method stub
-		return 0;
+		return strength;
 	}
 	public Brain getBrain() {
 		return brain;
@@ -62,6 +62,14 @@ public abstract class Unit {
 	public boolean getDispersed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	public double getVitality() {
+		// TODO Auto-generated method stub
+		return vitality;
+	}
+	public double getAgression() {
+		// TODO Auto-generated method stub
+		return agro;
 	}
 	
 }

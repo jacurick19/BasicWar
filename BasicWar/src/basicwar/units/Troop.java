@@ -30,10 +30,12 @@ public class Troop extends Unit {
 		else return -1;
 
 	}
+	//Default Constructor
     public Troop(){
         faction = -1;
     }
     
+    //Old logic to reproduce
     public double reproFunction() {
     	if(repro + vitality > 250 )  drive+=1;
     	return drive;

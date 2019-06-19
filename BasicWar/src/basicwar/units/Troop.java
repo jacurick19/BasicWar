@@ -20,6 +20,7 @@ public class Troop extends Unit {
    public boolean dispersed = false;
    private double drive = 0;
    private Brain brain;
+   private int movement = 0;
 	Random random = new Random();
 	int time = 0;
 	int dir = -1;
@@ -226,38 +227,40 @@ public class Troop extends Unit {
     }
     
     public void disperse() {
-    	
     	//TODO
-    	if(faction == 0) {
-    		if(x == 200 && y ==200) dispersed = true;
-    		if(x > 200) x--;
-    		if(x < 200) x++;
-    		if(y < 200) y++;
-    		if(y > 200) y--;
+    	movement++;
+    	if(movement > 50) dispersed = true;
+    	int a= random.nextInt(50);
+		int b = random.nextInt(50);
+		int c= random.nextInt(50);
+		int d = random.nextInt(50);
+    	if(faction == 1) {
+        	
+    		if(x > 200+a) x--;
+    		if(x < 200-b) x++;
+    		if(y < 200+c) y++;
+    		if(y > 200-d) y--;
     		
     	}
-    	if(faction == 1) {
+    	if(faction == 0) {
     		
-    		if(x == 300 && y ==200) dispersed = true;
-    		if(x > 300) x--;
-    		if(x < 300) x++;
-    		if(y < 200) y++;
-    		if(y > 200) y--;
+    		if(x > 300+a) x--;
+    		if(x < 300-b) x++;
+    		if(y < 200+c) y++;
+    		if(y > 200-d) y--;
     	}
     	if(faction == 2) {
-    		if(x == 200 && y ==300) dispersed = true;
-    		if(x > 200) x--;
-    		if(x < 200) x++;
-    		if(y < 300) y++;
-    		if(y > 300) y--;
+    		if(x > 200+a) x--;
+    		if(x < 200-b) x++;
+    		if(y < 300+c) y++;
+    		if(y > 300-d) y--;
 	
     	}
     	if(faction == 3) {
-    		if(x == 300 && y ==300) dispersed = true;
-    		if(x > 300) x--;
-    		if(x < 300) x++;
-    		if(y < 300) y++;
-    		if(y > 300) y--;
+    		if(x > 300+a) x--;
+    		if(x < 300-b) x++;
+    		if(y < 300+c) y++;
+    		if(y > 300-d) y--;
     	}
     	
     		

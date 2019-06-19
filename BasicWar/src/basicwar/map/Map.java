@@ -77,6 +77,8 @@ public class Map {
     }
     public void removeMap(Unit unit){
         mapList.remove(unit);
+        survivors.clear();
+        survivors.add(unit);
         numberPerFaction[unit.getFaction()]--;
 
     }
@@ -139,7 +141,11 @@ public class Map {
     		
         }
     	
-    	if(threeAreZero(numberPerFaction)) bw.genstate = GENSTATE.RESET;
+    	if(threeAreZero(numberPerFaction)) {
+    		mapList.clear();
+    		bw.genstate = GENSTATE.RESET;
+    	
+    	}
     }
     
     //Returns the faction with the most territory
@@ -316,15 +322,14 @@ public class Map {
     }
 
     public void reset() {
-    	survivors.clear();
-    	System.out.println("resetting");
+    
+       	System.out.println("resetting");
     	//needed for setUp()
     	setSomeUp = false;
     	for(int i = 0; i < mapList.size(); i ++){
     		survivors.add(mapList.get(i));
             mapList.get(i).condense();
         }
-    	
     	bw.genstate = GENSTATE.SET_UP;
     	setUp(calculateAvg(survivors));
     	}

@@ -16,7 +16,6 @@ public class Screen {
     }
     
     public boolean renderIsEmpty(int x, int y, int faction) {
-    	
     	if(x+y*size < pixels.length) {
     		if(pixels[x+y*size] == 0) {    			
     			if(faction == 1) {pixels[x +y*size] = 0xEE1414;

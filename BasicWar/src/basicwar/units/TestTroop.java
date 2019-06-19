@@ -179,10 +179,6 @@ public class TestTroop extends Unit {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void condense() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

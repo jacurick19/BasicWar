@@ -83,12 +83,7 @@ public class Map {
 
     }
     
-    public void returnToCenter() {
-    	for(int i = 0; i < mapList.size(); i ++){
-            mapList.get(i).condense();
-        }
-    	
-    }
+
 
     public void update(){
     	//printArray(numberPerFaction);

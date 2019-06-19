@@ -153,10 +153,15 @@ public class Troop extends Unit {
     public Brain getBrain() {
     	return brain;
     }
-    public void moveUp() { if(y > 0)y--;}
-    public void moveLeft() { if(x > 0)x--;}
-    public void moveDown() { if(y < 498)y++;}
-    public void moveRight() { if(x < 498)x++;}
+    
+    //changed so moving grants food
+    public void moveUp() { if(y > 0)y--;
+    	food+=5;}
+    public void moveLeft() { if(x > 0)x--;
+    food+=5;}
+    public void moveDown() { if(y < 498)y++;
+    food+=5;}
+    public void moveRight() { if(x < 498)x++;food+=5;}
 
     public void moveRandom(){
     	
@@ -268,13 +273,7 @@ public class Troop extends Unit {
     	
     }
     
-    public void condense() {
-    	
-    	if(x > 250) x--;
-		if(x < 250) x++;
-		if(y < 250) y++;
-		if(y > 250) y--;
-    }
+   
     
     public void setHealth(double hea) {
     	health = hea;
@@ -285,6 +284,8 @@ public class Troop extends Unit {
     public void battle(ArrayList<ArrayList<ArrayList<Unit>>> ar, int x, int y) {
     	for(int i = 0; i <(ar.get(x).get(y)).size(); i++) {
     		if(ar.get(x).get(y).get(i).faction != faction) {
+    	    	System.out.println("doin battle");
+
     			battle(this, ar.get(x).get(y).get(i));
     		
     			;

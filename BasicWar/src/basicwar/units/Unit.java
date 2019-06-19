@@ -24,7 +24,6 @@ public abstract class Unit {
     public abstract void setHealth(double health);
     public abstract void changeHealth(double health);
 	public abstract void disperse();
-	public abstract void condense();
 	protected double health;
     protected int x;
     protected int faction;

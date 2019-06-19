@@ -82,9 +82,9 @@ public class Map {
     }
     public void removeMap(Unit unit){
         mapList.remove(unit);
-        survivors.clear();
-        survivors.add(unit);
         numberPerFaction[unit.getFaction()]--;
+        if(numberPerFaction[unit.getFaction()] == 0) { survivors.add(unit);}
+
 
     }
     
@@ -322,6 +322,10 @@ public class Map {
     	
     	
     	
+    	
+    	
+    	
+    	
     	if(setSomeUp == true && done == false) {
     		for(int i = 0; i < mapList.size(); i ++){
                 mapList.get(i).disperse();
@@ -334,6 +338,18 @@ public class Map {
     	}
     	if(done)bw.genstate = GENSTATE.WORK;
     	
+    	
+    }
+	
+	
+    public Unit parentOfFaction(int fac) {
+    	Unit toReturn = null;
+    	if (fac == survivors.get(0).getFaction()) {
+    		
+    		
+    	}
+    	for(int i = 0; i < survivors.size(););
+    	return toReturn;
     	
     }
 

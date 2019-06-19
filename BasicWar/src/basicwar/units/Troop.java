@@ -279,7 +279,7 @@ public class Troop extends Unit {
     }
     
    
-    
+
     public void setHealth(double hea) {
     	health = hea;
     	

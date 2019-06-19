@@ -43,7 +43,6 @@ public class Troop extends Unit {
     	
     }
     
-    //TODO brain
     public Troop(double strength, double vitality, double agro, Brain br, Map map) {
     	random = new Random();
 
@@ -67,8 +66,11 @@ public class Troop extends Unit {
         anger = 2;
         hunger = 0;
         repro = 1;
+        
+        
+        
         brain = new Brain(parent.getBrain());
-        food = 5;
+        food = 2;
         
         vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
         strength = parent.strength + (plusMinus()*(random.nextInt(2) * DELTA));
@@ -90,7 +92,7 @@ public class Troop extends Unit {
         hunger = 0;
         repro = 1;
         brain = new Brain(parent.getBrain());
-        food = 5;
+        food = 2;
         
         vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
         strength = parent.strength + (plusMinus()*(random.nextInt(2) * DELTA));
@@ -125,7 +127,8 @@ public class Troop extends Unit {
     
     public void act(){
     	//Die of natural causes
-    	if(time > (strength*100))die();
+    	//if(time > (strength*100))die();
+    	
     	//die if you have no health
     	if(health<0) die();
     	
@@ -176,11 +179,14 @@ public class Troop extends Unit {
     }
     
     public void eat(){
-        food-=10;
+    	if(food>0) {
+    		System.out.println("eat fresh");
+        food-=1;
         hunger = 0;
         if(health < 10) health+=5;
         else health = TROOP_HEALTH;
-    }
+    	}
+    	}
     
     public void reproduce(){
         if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && repro >0){

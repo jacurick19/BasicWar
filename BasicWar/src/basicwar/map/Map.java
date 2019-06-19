@@ -290,7 +290,6 @@ public class Map {
 
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
-    			System.out.println("survivor: " + survivors);
     			addMap(new Troop(251,249,1, survivors.get(0), this));
     		}
     		for(int i = 0; i < 10; i ++){
@@ -324,11 +323,14 @@ public class Map {
     public void reset() {
     
        	System.out.println("resetting");
+       	
+       	
     	//needed for setUp()
     	setSomeUp = false;
+    	
+    	
     	for(int i = 0; i < mapList.size(); i ++){
     		survivors.add(mapList.get(i));
-            mapList.get(i).condense();
         }
     	bw.genstate = GENSTATE.SET_UP;
     	setUp(calculateAvg(survivors));

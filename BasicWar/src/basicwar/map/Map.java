@@ -38,6 +38,11 @@ public class Map {
     public int[] territoryByFaction = new int[NUMBER_OF_FACTIONS];
     public int[] numberPerFaction = new int[NUMBER_OF_FACTIONS];
     public ArrayList<Integer> factionsAlive = new ArrayList<Integer>();
+    private ArrayList<Unit> faction0 = new ArrayList<Unit>();
+    private ArrayList<Unit> faction1 = new ArrayList<Unit>();
+    private ArrayList<Unit> faction2 = new ArrayList<Unit>();
+    private ArrayList<Unit> faction3 = new ArrayList<Unit>();
+
     private BasicWar bw;
 	ArrayList<Unit> survivors = new ArrayList<Unit>();	
 
@@ -225,6 +230,7 @@ public class Map {
     
     
     
+    
     //takes an arraylist of units and creates an average unit from it, randomly mutated
     public Unit calculateAvg(ArrayList<Unit> ar) {
     	double strength = 0;
@@ -267,16 +273,24 @@ public class Map {
     		ranOnce = true;
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(i+225,i+225,1, this));
+    			Troop t = new Troop(i+225,i+225,1, this);
+    			addMap(t);
+    			faction0.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(i+275,i+225,0, this));
+    			Troop t = new Troop(i+275,i+225,0, this);
+    			addMap(t);
+    			faction1.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(i+225,i+275,2, this));
+    			Troop t = new Troop(i+225,i+275,2, this);
+    			addMap(t);
+    			faction2.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(i+275,i+275,3, this));
+    			Troop t = new Troop(i+275,i+275,3, this);
+    			addMap(t);
+    			faction3.add(t);
     		}
     	}
     	
@@ -285,16 +299,24 @@ public class Map {
 
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(251,249,1, survivors.get(0), this));
+    			Troop t = new Troop(251,249,1, calculateAvg(faction1), this);
+    			addMap(t);
+    			faction1.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(249,i+249,0, survivors.get(0), this));
+    			Troop t = new Troop(249,i+249,0, calculateAvg(faction0), this);
+    			addMap(t);
+    			faction0 .add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(251,i+251,2,survivors.get(0), this));
+    			Troop t = new Troop(251,i+251,2,calculateAvg(faction2), this);
+    			addMap(t);
+    			faction2.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(249,251,3,survivors.get(0), this));
+    			Troop t =new Troop(249,251,3,calculateAvg(faction3), this);
+    			addMap(t);
+    			faction3.add(t);
     		}
     	}
     	

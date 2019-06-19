@@ -159,12 +159,12 @@ public class Troop extends Unit {
     
     //changed so moving grants food
     public void moveUp() { if(y > 0)y--;
-    	food+=5;}
+    	food+=2;}
     public void moveLeft() { if(x > 0)x--;
-    food+=5;}
+    food+=2;}
     public void moveDown() { if(y < 498)y++;
-    food+=5;}
-    public void moveRight() { if(x < 498)x++;food+=5;}
+    food+=2;}
+    public void moveRight() { if(x < 498)x++;food+=2;}
 
     public void moveRandom(){
     	
@@ -180,7 +180,6 @@ public class Troop extends Unit {
     
     public void eat(){
     	if(food>0) {
-    		System.out.println("eat fresh");
         food-=1;
         hunger = 0;
         if(health < 10) health+=5;

@@ -378,9 +378,7 @@ public class Map {
     	setSomeUp = false;
     	
     	
-    	for(int i = 0; i < mapList.size(); i ++){
-    		survivors.add(mapList.get(i));
-        }
+
     	bw.genstate = GENSTATE.SET_UP;
     	System.out.println(survivors);
     	setUp(calculateAvg(survivors));

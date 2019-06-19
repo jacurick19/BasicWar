@@ -39,6 +39,8 @@ public class Map {
     public int[] numberPerFaction = new int[NUMBER_OF_FACTIONS];
     public ArrayList<Integer> factionsAlive = new ArrayList<Integer>();
     private BasicWar bw;
+	ArrayList<Unit> survivors = new ArrayList<Unit>();	
+
     public Map(int size, BasicWar bw){
     	this.bw = bw;
     	//Make the map ArrayList an ArrayList that contains 500 ArrayLists of 500 ArrayLists that each holds the units at that location
@@ -88,7 +90,7 @@ public class Map {
 
     public void update(){
     	//printArray(numberPerFaction);
-    	System.out.println("working");
+    	//System.out.println("working");
 
     	for(int i = 0; i < mapList.size(); i ++){
             mapList.get(i).update();
@@ -256,7 +258,7 @@ public class Map {
     	}
     
 	
-	public void setUp(ArrayList<Unit> winners, ArrayList<Unit> second, ArrayList<Unit> third) {
+	public void setUp(Unit unit) {
     	boolean done = false;
     	if(bw.genstate == GENSTATE.FIRST_RUN && !ranOnce) {
         	System.out.println("first setup");
@@ -277,21 +279,22 @@ public class Map {
     		}
     	}
     	
-    	if(bw.genstate == GENSTATE.SET_UP) {
+    	if(bw.genstate == GENSTATE.SET_UP &&setSomeUp == false) {
         	System.out.println("second setup");
 
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(251,249,1, this));
+    			System.out.println("survivor: " + survivors);
+    			addMap(new Troop(251,249,1, survivors.get(0), this));
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(249,i+249,0, this));
+    			addMap(new Troop(249,i+249,0, survivors.get(0), this));
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(251,i+251,2, this));
+    			addMap(new Troop(251,i+251,2,survivors.get(0), this));
     		}
     		for(int i = 0; i < 10; i ++){
-    			addMap(new Troop(249,251,3, this));
+    			addMap(new Troop(249,251,3,survivors.get(0), this));
     		}
     	}
     	
@@ -313,17 +316,18 @@ public class Map {
     }
 
     public void reset() {
+    	survivors.clear();
     	System.out.println("resetting");
-
     	//needed for setUp()
     	setSomeUp = false;
     	for(int i = 0; i < mapList.size(); i ++){
+    		survivors.add(mapList.get(i));
             mapList.get(i).condense();
         }
     	
     	bw.genstate = GENSTATE.SET_UP;
-    	
-    }
+    	setUp(calculateAvg(survivors));
+    	}
     
     
     

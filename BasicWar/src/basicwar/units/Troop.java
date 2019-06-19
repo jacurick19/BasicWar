@@ -77,6 +77,29 @@ public class Troop extends Unit {
         this.y = y;
     }
   
+    public Troop(int x, int y, int fac, Unit parent, Map map){
+    	random = new Random();
+    	  dir = random.nextInt(4);
+        this.ammo = 5;
+        this.health=TROOP_HEALTH;
+        this.faction = fac;
+        this.job = "troop";
+        this.map = map;
+        anger = 2;
+        hunger = 0;
+        repro = 1;
+        brain = new Brain(parent.getBrain());
+        food = 5;
+        
+        vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
+        strength = parent.strength + (plusMinus()*(random.nextInt(2) * DELTA));
+        agro = parent.agro + (plusMinus()*(random.nextInt(2) * DELTA));;
+        
+        this.x = x;
+        this.y = y;
+    }
+    
+    
     public Troop(int x, int y, int faction, Map map){
     	random = new Random();
         this.ammo = 5;
@@ -165,10 +188,8 @@ public class Troop extends Unit {
     //If someone else is in the same spot as you, battle
     @Override
     public void render(Screen screen) {
-    	System.out.println("working");
-
+    //	System.out.println("working");
         if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
-     
         ;
     }
 

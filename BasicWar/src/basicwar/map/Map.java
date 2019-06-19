@@ -83,12 +83,12 @@ public class Map {
     public void removeMap(Unit unit){
         mapList.remove(unit);
         numberPerFaction[unit.getFaction()]--;
-        if(numberPerFaction[unit.getFaction()] == 0) { survivors.add(unit);
+        if(numberPerFaction[unit.getFaction()] == 0 && survivors.size()< 5) { survivors.add(unit);
         }
-
 
     }
     
+
 
 
     public void update(){
@@ -348,7 +348,6 @@ public class Map {
     public Unit parentOfFaction(int fac) {
     	Unit toReturn = null;
     	int place =  -1;
-    	System.out.println(survivors);
     	for(int i = 0; i < survivors.size(); i ++) {
     		if(fac == survivors.get(i).getFaction()) place = i;
     	};
@@ -383,9 +382,14 @@ public class Map {
     		survivors.add(mapList.get(i));
         }
     	bw.genstate = GENSTATE.SET_UP;
+    	System.out.println(survivors);
     	setUp(calculateAvg(survivors));
     	survivors.clear();
-    	}
+    	faction0.clear();
+    	faction1.clear();
+    	faction2.clear();
+    	faction3.clear();
+}
     
     
     

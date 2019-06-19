@@ -83,7 +83,8 @@ public class Map {
     public void removeMap(Unit unit){
         mapList.remove(unit);
         numberPerFaction[unit.getFaction()]--;
-        if(numberPerFaction[unit.getFaction()] == 0) { survivors.add(unit);}
+        if(numberPerFaction[unit.getFaction()] == 0) { survivors.add(unit);
+        }
 
 
     }
@@ -142,7 +143,8 @@ public class Map {
         }
     	
     	if(threeAreZero(numberPerFaction)) {
-    		mapList.clear();
+    		if(mapList.size()>0) {
+    		for(int i = 0; i < mapList.size(); i ++)removeMap(mapList.get(i));}
     		bw.genstate = GENSTATE.RESET;
     	
     	}
@@ -275,12 +277,12 @@ public class Map {
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+225,i+225,1, this);
     			addMap(t);
-    			faction0.add(t);
+    			faction1.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+275,i+225,0, this);
     			addMap(t);
-    			faction1.add(t);
+    			faction0.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+225,i+275,2, this);
@@ -299,22 +301,23 @@ public class Map {
 
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(251,249,1, calculateAvg(faction1), this);
+    			Troop t = new Troop(249,i+249,0, parentOfFaction(1), this);
     			addMap(t);
-    			faction1.add(t);
+    			faction1 .add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(249,i+249,0, calculateAvg(faction0), this);
+    			Troop t = new Troop(251,249,1, parentOfFaction(0), this);
     			addMap(t);
-    			faction0 .add(t);
+    			faction0.add(t);
     		}
+
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(251,i+251,2,calculateAvg(faction2), this);
+    			Troop t = new Troop(251,i+251,2,parentOfFaction(2), this);
     			addMap(t);
     			faction2.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			Troop t =new Troop(249,251,3,calculateAvg(faction3), this);
+    			Troop t =new Troop(249,251,3,parentOfFaction(3), this);
     			addMap(t);
     			faction3.add(t);
     		}
@@ -341,15 +344,29 @@ public class Map {
     	
     }
 	
-	
+	//first and second stay, third place is a clone of second place, 4th is a clone of first place
     public Unit parentOfFaction(int fac) {
     	Unit toReturn = null;
-    	if (fac == survivors.get(0).getFaction()) {
-    		
-    		
-    	}
-    	for(int i = 0; i < survivors.size(););
+    	int place =  -1;
+    	System.out.println(survivors);
+    	for(int i = 0; i < survivors.size(); i ++) {
+    		if(fac == survivors.get(i).getFaction()) place = i;
+    	};
+    	if(place == 0) toReturn = calculateAvg(numberToFactionList(fac));
+    	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac));
+    	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(1).getFaction()));
+    	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(0).getFaction()));
     	return toReturn;
+    	
+    }
+    
+    public ArrayList<Unit> numberToFactionList(int num){
+    	if(num == 0) return faction0;
+    	if(num == 1) return faction1;
+    	if(num == 2) return faction2;
+    	if(num == 3) return faction3;
+    		
+    	return null;
     	
     }
 
@@ -367,6 +384,7 @@ public class Map {
         }
     	bw.genstate = GENSTATE.SET_UP;
     	setUp(calculateAvg(survivors));
+    	survivors.clear();
     	}
     
     

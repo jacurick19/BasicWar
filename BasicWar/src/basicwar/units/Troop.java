@@ -52,7 +52,7 @@ public class Troop extends Unit {
         this.vitality = vitality;
         this.agro = agro;
     	this.health = TROOP_HEALTH;
-    	this.brain = br;
+    	this.brain = new Brain(br);
     	
     }
     

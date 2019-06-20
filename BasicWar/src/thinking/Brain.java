@@ -13,7 +13,7 @@ public class Brain {
 	private ArrayList<ArrayList<Double>> biases = new ArrayList<ArrayList<Double>>();
 	private ArrayList<ArrayList<Double>> activation = new ArrayList<ArrayList<Double>>();
 	private Random random = new Random();
-	private final Double DELTA = 0.45;
+	private final Double DELTA = 0.85;
 	public Brain() {
 		//These will be dummy arraylists to fill the activation arraylist
 		ArrayList<Double> temp_7 = new ArrayList<Double>();
@@ -133,6 +133,10 @@ public class Brain {
 		
 	}
 	
+	public ArrayList<ArrayList<ArrayList<Double>>> averageWeights(ArrayList<Unit> units){
+		return weights;
+	}
+	
 	public double sigmoid(double d) {
 		
 		return Math.exp(d)/(1+Math.exp(d));
@@ -246,6 +250,8 @@ public class Brain {
 	}
 		
 	
-	
+	public String toString() {
+		return "these are my weights: "+weights;
+	}
 
 }

@@ -245,7 +245,7 @@ public class Map {
     
     
     //takes an arraylist of units and creates an average unit from it, randomly mutated
-    public Unit calculateAvg(ArrayList<Unit> ar) {
+    public Unit calculateAvg(ArrayList<Unit> ar, int pla) {
     	if(ar.isEmpty()) return null;
     	double strength = 0;
     	double vitality = 0;
@@ -263,13 +263,13 @@ public class Map {
     	}
     	
     	//TODO this should not be new Brain(). it should be based on the average
-    	Troop t = new Troop(strength, vitality, agression, survivors.get(0).getBrain(), this);
+    	Troop t = new Troop(strength, vitality, agression, survivors.get(pla).getBrain(), this);
     	//System.out.println(t);
     	return t;
     	}
     
     public Unit calculateSurvivors() {
-    	return calculateAvg(survivors);
+    	return calculateAvg(survivors, -1);
     }
     
     
@@ -287,7 +287,7 @@ public class Map {
     	}
     
 	
-	public void setUp(Unit unit) {
+	public void setUp() {
 		
 	
     	boolean done = false;
@@ -385,10 +385,10 @@ public class Map {
     	for(int i = 0; i < survivors.size(); i ++) {
     		if(fac == survivors.get(i).getFaction()) place = i;
     	};
-    	if(place == 0) toReturn = calculateAvg(numberToFactionList(fac));
-    	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac));
-    	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(1).getFaction()));
-    	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(0).getFaction()));
+    	if(place == 0) toReturn = calculateAvg(numberToFactionList(fac), place);
+    	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac), place);
+    	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(2).getFaction()), place);
+    	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(3).getFaction()), place);
     	
     	
     	return toReturn;

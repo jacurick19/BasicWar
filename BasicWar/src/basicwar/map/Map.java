@@ -42,7 +42,10 @@ public class Map {
     private ArrayList<Unit> faction1 = new ArrayList<Unit>();
     private ArrayList<Unit> faction2 = new ArrayList<Unit>();
     private ArrayList<Unit> faction3 = new ArrayList<Unit>();
-
+    ArrayList<Unit> temp0 = new ArrayList<Unit>();
+    ArrayList<Unit> temp1 = new ArrayList<Unit>();
+    ArrayList<Unit> temp2 = new ArrayList<Unit>();
+    ArrayList<Unit> temp3 = new ArrayList<Unit>();
     private BasicWar bw;
 	ArrayList<Unit> survivors = new ArrayList<Unit>();	
 
@@ -170,7 +173,7 @@ public class Map {
     	if(mapList.size()>0) {
     	for(Unit u : mapList) {
     		toReturn+=u.getStrength();
-    		//System.out.println(u.getStrength());
+    //		System.out.println(u);
     	}
     	}
     	
@@ -243,21 +246,25 @@ public class Map {
     
     //takes an arraylist of units and creates an average unit from it, randomly mutated
     public Unit calculateAvg(ArrayList<Unit> ar) {
+    	if(ar.isEmpty()) return null;
     	double strength = 0;
     	double vitality = 0;
     	double agression = 0;
     	for(Unit u : ar) {
+    		
     		strength += ((u.getStrength()) + DELTA*plusMinus());
     		vitality+=(u.getVitality() +DELTA*plusMinus());
     		agression += (u.getAgression() +DELTA*plusMinus());
     	}
-    	strength /= ar.size();
-    	vitality /= ar.size();
-    	agression /= ar.size();
-    	
+    	if(ar.size()>0) {
+    		strength /= ar.size();
+    		vitality /= ar.size();
+    		agression /= ar.size();
+    	}
     	
     	//TODO this should not be new Brain(). it should be based on the average
     	Troop t = new Troop(strength, vitality, agression, survivors.get(0).getBrain(), this);
+    	//System.out.println(t);
     	return t;
     	}
     
@@ -281,6 +288,8 @@ public class Map {
     
 	
 	public void setUp(Unit unit) {
+		
+	
     	boolean done = false;
     	if(bw.genstate == GENSTATE.FIRST_RUN && !ranOnce) {
         	System.out.println("first setup");
@@ -290,24 +299,26 @@ public class Map {
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+225,i+225,1, this);
     			addMap(t);
-    			faction1.add(t);
+    			temp1.add(t);
+
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+275,i+225,0, this);
     			addMap(t);
-    			faction0.add(t);
+    			temp0.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+225,i+275,2, this);
     			addMap(t);
-    			faction2.add(t);
+    			temp2.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(i+275,i+275,3, this);
     			addMap(t);
-    			faction3.add(t);
+    			temp3.add(t);
     		}
     	}
+
     	
     	if(bw.genstate == GENSTATE.SET_UP &&setSomeUp == false) {
     		
@@ -315,23 +326,23 @@ public class Map {
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(249,i+249,0, parentOfFaction(0), this);
     			addMap(t);
-    			faction1 .add(t);
+    			temp0 .add(t);
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(251,249,1, parentOfFaction(1), this);
     			addMap(t);
-    			faction0.add(t);
+    			temp1.add(t);
     		}
 
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(251,i+251,2,parentOfFaction(2), this);
     			addMap(t);
-    			faction2.add(t);
+    			temp2.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
     			Troop t =new Troop(249,251,3,parentOfFaction(3), this);
     			addMap(t);
-    			faction3.add(t);
+    			temp3.add(t);
     		}
     	}
     	
@@ -356,6 +367,10 @@ public class Map {
         	faction1.clear();
         	faction2.clear();
         	faction3.clear();
+        	faction0.addAll(temp0);
+        	faction1.addAll(temp1);
+        	faction2.addAll(temp2);
+        	faction3.addAll(temp3);
         	survivors.clear();
     		bw.genstate = GENSTATE.WORK;
     	}

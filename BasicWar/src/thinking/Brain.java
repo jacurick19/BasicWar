@@ -53,6 +53,19 @@ public class Brain {
 		
 	}
 	
+	//TODO make it avg with variation, not random
+	public Brain brainFromList(ArrayList<Unit> ar) {
+		
+		ArrayList<Brain> br = new ArrayList<Brain>();
+		for(Unit u : ar) {
+			br.add(u.getBrain());
+		}
+		
+		int r = random.nextInt(br.size());
+		return br.get(r);
+		
+		
+	}
 	
 	public Brain(Brain parent) {
 		//These will be dummy arraylists to fill the activation arraylist

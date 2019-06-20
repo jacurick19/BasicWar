@@ -95,6 +95,7 @@ public class Troop extends Unit {
         brain = new Brain(parent.getBrain());
         food = 2;
         vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
+      //  System.out.println("THIS IS HUGGGGGE: "+parent.job);
         strength = parent.strength + (plusMinus()*(random.nextInt(2) * DELTA));
         agro = parent.agro + (plusMinus()*(random.nextInt(2) * DELTA));;
         

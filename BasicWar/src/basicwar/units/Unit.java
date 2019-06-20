@@ -46,7 +46,7 @@ public abstract class Unit {
     }
     
     public String toString(){
-            return "I am a "+ job+" at position ("+x+", "+y+"). I belong to faction "+faction;
+            return "My strength is: "+strength+" I am a "+ job+" at position ("+x+", "+y+"). I belong to faction "+faction;
     }
 	public double getStrength() {
 		// TODO Auto-generated method stub

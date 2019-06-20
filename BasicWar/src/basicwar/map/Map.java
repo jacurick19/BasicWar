@@ -167,12 +167,15 @@ public class Map {
     
     public double averageStrength() {
     	double toReturn = 0;
+    	if(mapList.size()>0) {
     	for(Unit u : mapList) {
     		toReturn+=u.getStrength();
-    		
+    		//System.out.println(u.getStrength());
+    	}
     	}
     	
-    	
+//		System.out.println(toReturn/mapList.size());
+
     	return toReturn/mapList.size();
     	
     }
@@ -251,8 +254,11 @@ public class Map {
     	strength /= ar.size();
     	vitality /= ar.size();
     	agression /= ar.size();
+    	
+    	
     	//TODO this should not be new Brain(). it should be based on the average
-    	return new Troop(strength, vitality, agression, new Brain(), this);
+    	Troop t = new Troop(strength, vitality, agression, survivors.get(0).getBrain(), this);
+    	return t;
     	}
     
     public Unit calculateSurvivors() {
@@ -305,9 +311,6 @@ public class Map {
     	
     	if(bw.genstate == GENSTATE.SET_UP &&setSomeUp == false) {
     		
-        	System.out.println("second setup");
-        	System.out.println(survivors);
-
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(249,i+249,0, parentOfFaction(0), this);
@@ -349,7 +352,10 @@ public class Map {
 
     	}
     	if(done) {
-
+        	faction0.clear();
+        	faction1.clear();
+        	faction2.clear();
+        	faction3.clear();
         	survivors.clear();
     		bw.genstate = GENSTATE.WORK;
     	}
@@ -368,6 +374,8 @@ public class Map {
     	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac));
     	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(1).getFaction()));
     	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(0).getFaction()));
+    	
+    	
     	return toReturn;
     	
     }
@@ -386,10 +394,7 @@ public class Map {
     
        	System.out.println("resetting");
        	
-    	faction0.clear();
-    	faction1.clear();
-    	faction2.clear();
-    	faction3.clear();
+
     	//needed for setUp()
     	setSomeUp = false;
     	
@@ -424,23 +429,5 @@ public class Map {
 		if(temp >2) toReturn= true;
 		return toReturn;
 	}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 
+}

@@ -45,6 +45,7 @@ public class Troop extends Unit {
     
     public Troop(double strength, double vitality, double agro, Brain br, Map map) {
     	random = new Random();
+        this.job = "troop";
 
         this.map = map;
         this.strength = strength;
@@ -93,7 +94,6 @@ public class Troop extends Unit {
         repro = 1;
         brain = new Brain(parent.getBrain());
         food = 2;
-        
         vitality = parent.vitality + (plusMinus()*(random.nextInt(2) * DELTA));
         strength = parent.strength + (plusMinus()*(random.nextInt(2) * DELTA));
         agro = parent.agro + (plusMinus()*(random.nextInt(2) * DELTA));;
@@ -133,7 +133,7 @@ public class Troop extends Unit {
     	if(health<0) die();
     	
     	//Starve
-    	if(hunger>10) { 
+    	if(hunger>20) { 
     		hunger+=10;
     		health-=1;
     	}

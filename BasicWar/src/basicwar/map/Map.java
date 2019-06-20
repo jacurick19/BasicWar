@@ -77,14 +77,21 @@ public class Map {
     }
     public void addMap(Unit unit){
         mapList.add(unit);
+        System.out.println("faction: "+unit.getFaction()+" has: "+numberPerFaction[unit.getFaction()]);
+
         numberPerFaction[unit.getFaction()]++;
         
     }
+    
+    
     public void removeMap(Unit unit){
-        mapList.remove(unit);
         numberPerFaction[unit.getFaction()]--;
-        if(numberPerFaction[unit.getFaction()] == 0 && survivors.size()< 5) { survivors.add(unit);
+        if(numberPerFaction[unit.getFaction()] <= 0) {
+        	survivors.add(unit);
         }
+        System.out.println("faction: "+unit.getFaction()+" has: "+numberPerFaction[unit.getFaction()]);
+
+        mapList.remove(unit);
 
     }
     
@@ -144,10 +151,10 @@ public class Map {
     	
     	if(threeAreZero(numberPerFaction)) {
     		if(mapList.size()>0) {
-    		for(int i = 0; i < mapList.size(); i ++)removeMap(mapList.get(i));}
     		bw.genstate = GENSTATE.RESET;
     	
-    	}
+    		}
+    		}
     }
     
     //Returns the faction with the most territory
@@ -250,7 +257,9 @@ public class Map {
     	return new Troop(strength, vitality, agression, new Brain(), this);
     	}
     
-    
+    public Unit calculateSurvivors() {
+    	return calculateAvg(survivors);
+    }
     
     
     
@@ -297,16 +306,18 @@ public class Map {
     	}
     	
     	if(bw.genstate == GENSTATE.SET_UP &&setSomeUp == false) {
+    		
         	System.out.println("second setup");
+        	System.out.println(survivors);
 
     		setSomeUp = true;
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(249,i+249,0, parentOfFaction(1), this);
+    			Troop t = new Troop(249,i+249,0, parentOfFaction(0), this);
     			addMap(t);
     			faction1 .add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(251,249,1, parentOfFaction(0), this);
+    			Troop t = new Troop(251,249,1, parentOfFaction(1), this);
     			addMap(t);
     			faction0.add(t);
     		}
@@ -339,7 +350,11 @@ public class Map {
     		done = (mapList.get(i).getDispersed() && done);
 
     	}
-    	if(done)bw.genstate = GENSTATE.WORK;
+    	if(done) {
+
+        	survivors.clear();
+    		bw.genstate = GENSTATE.WORK;
+    	}
     	
     	
     }
@@ -373,20 +388,24 @@ public class Map {
     
        	System.out.println("resetting");
        	
-       	
-    	//needed for setUp()
-    	setSomeUp = false;
-    	
-    	
-
-    	bw.genstate = GENSTATE.SET_UP;
-    	System.out.println(survivors);
-    	setUp(calculateAvg(survivors));
-    	survivors.clear();
     	faction0.clear();
     	faction1.clear();
     	faction2.clear();
     	faction3.clear();
+    	//needed for setUp()
+    	setSomeUp = false;
+    	
+    	if(mapList.size()>=1) {
+    	int sz = mapList.size();
+    	for(int i = sz-1; i > -1; i--){
+    		System.out.println("Gonna remove: "+mapList);
+    		removeMap(mapList.get(i));
+    		}
+    	System.out.println(mapList);
+    	}
+    	
+    	bw.genstate = GENSTATE.SET_UP;
+ 
 }
     
     
@@ -397,8 +416,7 @@ public class Map {
     
     
     
-    
-    
+
     
     
     

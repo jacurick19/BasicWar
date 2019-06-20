@@ -233,7 +233,7 @@ public class BasicWar extends Canvas implements Runnable  {
     
     public void runGeneration() {
     		if(genstate == GENSTATE.FIRST_RUN) map.setUp(null);
-    		if(genstate == GENSTATE.SET_UP) map.setUp(null);
+    		if(genstate == GENSTATE.SET_UP) map.setUp(map.calculateSurvivors());
     		if(genstate == GENSTATE.WORK) map.update();
     		if(genstate == GENSTATE.RESET) map.reset();
     		

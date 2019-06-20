@@ -200,7 +200,6 @@ public class Troop extends Unit {
     @Override
     public void render(Screen screen) {
         if(!screen.renderIsEmpty(this.x,this.y,faction)) battle(map.map, x, y);
-        ;
     }
 
     @Override
@@ -222,8 +221,7 @@ public class Troop extends Unit {
     	
     	loser.die();
     	winner.health -= health*(loser.strength / winner.strength);
-    	return winner;
-    	
+    	return winner;	
     }
     
     public void changeHealth(double hea) {
@@ -282,7 +280,6 @@ public class Troop extends Unit {
 
     public void setHealth(double hea) {
     	health = hea;
-    	
     }
 
     

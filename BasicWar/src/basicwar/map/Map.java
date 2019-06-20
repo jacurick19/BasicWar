@@ -82,19 +82,24 @@ public class Map {
     }
     public void addMap(Unit unit){
         mapList.add(unit);
-
         numberPerFaction[unit.getFaction()]++;
-        
     }
     
     
     public void removeMap(Unit unit){
+        mapList.remove(unit);
         numberPerFaction[unit.getFaction()]--;
         if(numberPerFaction[unit.getFaction()] <= 0) {
+        	ArrayList<Unit> temp = survivors;
+        	for(int i= 0; i < survivors.size(); i ++) {
+        		if(survivors.get(i).getFaction()==unit.getFaction()) {
+        			temp.remove(i);
+        		}
+        	}
+        	survivors = temp;
         	survivors.add(unit);
         }
 
-        mapList.remove(unit);
 
     }
     
@@ -153,10 +158,10 @@ public class Map {
         }
     	
     	if(threeAreZero(numberPerFaction)) {
-    		if(mapList.size()>0) {
+    		
     		bw.genstate = GENSTATE.RESET;
     	
-    		}
+    		
     		}
     }
     
@@ -329,6 +334,10 @@ public class Map {
     		Unit parent1 = parentOfFaction(1);
     		Unit parent2 = parentOfFaction(2);
     		Unit parent3 = parentOfFaction(3);
+    		System.out.println("parent0: "+parent0);
+    		System.out.println("parent1: "+parent1);
+    		System.out.println("parent2: "+parent2);
+    		System.out.println("parent3: "+parent3);
     		for(int i = 0; i < 10; i ++){
     			Troop t = new Troop(249,i+249,0, parent0, this);
     			addMap(t);
@@ -396,8 +405,11 @@ public class Map {
     	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac), place);
     	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(2).getFaction()), place);
     	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(3).getFaction()), place);
-    	
-    	
+    	if(toReturn == null) {
+    		System.out.println("Somehow got a null return value in parentOfFaction");
+    		System.out.println("error occured at place: "+place);
+    		System.out.println("survivors is: "+survivors);
+    	}
     	return toReturn;
     	
     }
@@ -450,6 +462,9 @@ public class Map {
 			territoryObjectArray.add(new ArrayList<Territory>());
 			
 		}
+		for(int i = 0; i < NUMBER_OF_FACTIONS; i++) {
+    		numberPerFaction[i] = 0;
+    	}
     }
     
     

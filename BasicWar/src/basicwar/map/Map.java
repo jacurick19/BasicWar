@@ -77,7 +77,6 @@ public class Map {
     }
     public void addMap(Unit unit){
         mapList.add(unit);
-        System.out.println("faction: "+unit.getFaction()+" has: "+numberPerFaction[unit.getFaction()]);
 
         numberPerFaction[unit.getFaction()]++;
         
@@ -89,7 +88,6 @@ public class Map {
         if(numberPerFaction[unit.getFaction()] <= 0) {
         	survivors.add(unit);
         }
-        System.out.println("faction: "+unit.getFaction()+" has: "+numberPerFaction[unit.getFaction()]);
 
         mapList.remove(unit);
 
@@ -398,10 +396,8 @@ public class Map {
     	if(mapList.size()>=1) {
     	int sz = mapList.size();
     	for(int i = sz-1; i > -1; i--){
-    		System.out.println("Gonna remove: "+mapList);
     		removeMap(mapList.get(i));
     		}
-    	System.out.println(mapList);
     	}
     	
     	bw.genstate = GENSTATE.SET_UP;

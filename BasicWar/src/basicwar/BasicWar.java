@@ -21,6 +21,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 
@@ -181,6 +182,7 @@ public class BasicWar extends Canvas implements Runnable  {
         		 
         	 }
         	 
+        	 g.drawString("Wins: "+printArray(map.wins), 100, 10);
         	 g.drawString("Faction "+factionToColor(map.mostTerritory()) +" has the most territory", 300, 10);
         	 g.drawString("Average strength:  "+new DecimalFormat("#.##").format(map.averageStrength()), 300, 30);
         		g.setColor(Color.BLACK);
@@ -215,6 +217,13 @@ public class BasicWar extends Canvas implements Runnable  {
         }
         bs.show();
     }
+    
+    public String printArray(int[] ar ) {
+    	String toReturn = "";
+    	for(int i : ar) toReturn+=i+" ";
+    	return toReturn;
+    }
+    
     
     public void setSimSpeed(int n) {
 	   simSpeed = n;

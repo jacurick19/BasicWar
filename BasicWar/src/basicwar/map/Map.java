@@ -37,6 +37,7 @@ public class Map {
     public int[][] territoryColors = new int[MAP_SIZE][MAP_SIZE] ;
     public int[] territoryByFaction = new int[NUMBER_OF_FACTIONS];
     public int[] numberPerFaction = new int[NUMBER_OF_FACTIONS];
+    public int[] wins = new int[NUMBER_OF_FACTIONS];
     public ArrayList<Integer> factionsAlive = new ArrayList<Integer>();
     private ArrayList<Unit> faction0 = new ArrayList<Unit>();
     private ArrayList<Unit> faction1 = new ArrayList<Unit>();
@@ -70,6 +71,7 @@ public class Map {
     		
     		for(int i = 0; i < NUMBER_OF_FACTIONS; i++) {
         		numberPerFaction[i] = 0;
+        		wins[i] = 0;
         	}
     		for(int i = 0; i <= NUMBER_OF_FACTIONS; i ++) {
     			territoryObjectArray.add(new ArrayList<Territory>());
@@ -262,7 +264,7 @@ public class Map {
     		agression /= ar.size();
     	}
     	
-    	//TODO this should not be new Brain(). it should be based on the average
+    	//TODO this should not survivors.get(pla).getBrain(). it should be based on the average of the top places
     	Troop t = new Troop(strength, vitality, agression, survivors.get(pla).getBrain(), this);
     	//System.out.println(t);
     	return t;
@@ -323,24 +325,28 @@ public class Map {
     	if(bw.genstate == GENSTATE.SET_UP &&setSomeUp == false) {
     		
     		setSomeUp = true;
+    		Unit parent0 = parentOfFaction(0);
+    		Unit parent1 = parentOfFaction(1);
+    		Unit parent2 = parentOfFaction(2);
+    		Unit parent3 = parentOfFaction(3);
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(249,i+249,0, parentOfFaction(0), this);
+    			Troop t = new Troop(249,i+249,0, parent0, this);
     			addMap(t);
     			temp0 .add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(251,249,1, parentOfFaction(1), this);
+    			Troop t = new Troop(251,249,1, parent1, this);
     			addMap(t);
     			temp1.add(t);
     		}
 
     		for(int i = 0; i < 10; i ++){
-    			Troop t = new Troop(251,i+251,2,parentOfFaction(2), this);
+    			Troop t = new Troop(251,i+251,2,parent2, this);
     			addMap(t);
     			temp2.add(t);
     		}
     		for(int i = 0; i < 10; i ++){
-    			Troop t =new Troop(249,251,3,parentOfFaction(3), this);
+    			Troop t =new Troop(249,251,3,parent3, this);
     			addMap(t);
     			temp3.add(t);
     		}
@@ -385,6 +391,7 @@ public class Map {
     	for(int i = 0; i < survivors.size(); i ++) {
     		if(fac == survivors.get(i).getFaction()) place = i;
     	};
+    	if(place == 0)wins[fac]++;
     	if(place == 0) toReturn = calculateAvg(numberToFactionList(fac), place);
     	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac), place);
     	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(2).getFaction()), place);
@@ -420,6 +427,7 @@ public class Map {
     		}
     	}
     	
+    	resetTerritory();
     	bw.genstate = GENSTATE.SET_UP;
  
 }
@@ -429,7 +437,19 @@ public class Map {
     
     
     
-    
+    public void resetTerritory() {
+		for(int i = 0; i < MAP_SIZE; i++) {
+    		for(int j = 0; j < MAP_SIZE; j++) {
+        		territory[i][j] = -1;
+        		territoryColors[i][j] = 0;
+        	}
+    		
+	}
+		for(int i = 0; i <= NUMBER_OF_FACTIONS; i ++) {
+			territoryObjectArray.add(new ArrayList<Territory>());
+			
+		}
+    }
     
     
 

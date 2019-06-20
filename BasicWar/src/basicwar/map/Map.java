@@ -445,6 +445,7 @@ public class Map {
         	}
     		
 	}
+		territoryObjectArray.clear();
 		for(int i = 0; i <= NUMBER_OF_FACTIONS; i ++) {
 			territoryObjectArray.add(new ArrayList<Territory>());
 			

@@ -13,6 +13,7 @@ public class Brain {
 	private ArrayList<ArrayList<Double>> biases = new ArrayList<ArrayList<Double>>();
 	private ArrayList<ArrayList<Double>> activation = new ArrayList<ArrayList<Double>>();
 	private Random random = new Random();
+	private static Random statRand = new Random();
 	private final Double DELTA = 0.85;
 	public Brain() {
 		//These will be dummy arraylists to fill the activation arraylist
@@ -54,18 +55,20 @@ public class Brain {
 	}
 	
 	//TODO make it avg with variation, not random
-	public Brain brainFromList(ArrayList<Unit> ar) {
+	public static Brain  brainFromList(ArrayList<Unit> ar) {
 		
 		ArrayList<Brain> br = new ArrayList<Brain>();
 		for(Unit u : ar) {
 			br.add(u.getBrain());
 		}
 		
-		int r = random.nextInt(br.size());
+		int r = statRand.nextInt(br.size());
 		return br.get(r);
 		
 		
 	}
+	
+	
 	
 	public Brain(Brain parent) {
 		//These will be dummy arraylists to fill the activation arraylist

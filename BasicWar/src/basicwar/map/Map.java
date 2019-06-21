@@ -157,7 +157,7 @@ public class Map {
     		
         }
     	
-    	if(threeAreZero(numberPerFaction)) {
+    	if(threeAreZero(numberPerFaction)||mapList.size()==0) {
     		
     		bw.genstate = GENSTATE.RESET;
     	
@@ -252,7 +252,7 @@ public class Map {
     
     
     //takes an arraylist of units and creates an average unit from it, randomly mutated
-    public Unit calculateAvg(ArrayList<Unit> ar, int pla) {
+    public Unit calculateAvg(ArrayList<Unit> ar, int pla, boolean useFac, int fac) {
     	if(ar.isEmpty()) return null;
     	double strength = 0;
     	double vitality = 0;
@@ -268,15 +268,20 @@ public class Map {
     		vitality /= ar.size();
     		agression /= ar.size();
     	}
+    	Troop t;
     	
     	//TODO this should not survivors.get(pla).getBrain(). it should be based on the average of the top places
-    	Troop t = new Troop(strength, vitality, agression, survivors.get(pla).getBrain(), this);
+    	if(!useFac)	t = new Troop(strength, vitality, agression, survivors.get(pla).getBrain(), this);
+    	
+    	//brainFromList currently selects a random brain from the list
+    	else t = new Troop(strength, vitality, agression, numberToFactionList(highestElementIndex(territoryByFaction)).get(0).getBrain(), this);
+    	
     	//System.out.println(t);
     	return t;
     	}
     
     public Unit calculateSurvivors() {
-    	return calculateAvg(survivors, -1);
+    	return calculateAvg(survivors, -1, false, -1);
     }
     
     
@@ -393,6 +398,16 @@ public class Map {
     	
     }
 	
+	
+	//Returns the index of the largest element in an array, an error occurs if the array is empty
+	public int highestElementIndex(int[] ar) {
+		int toReturn = 0;
+		for(int i = 1; i < ar.length; i ++) {
+			if(ar[i]>ar[toReturn])toReturn = i;
+		}
+		return toReturn;
+	}
+	
 	//first and second stay, third place is a clone of second place, 4th is a clone of first place
     public Unit parentOfFaction(int fac) {
     	Unit toReturn = null;
@@ -401,10 +416,10 @@ public class Map {
     		if(fac == survivors.get(i).getFaction()) place = i;
     	};
     	if(place == 0)wins[fac]++;
-    	if(place == 0) toReturn = calculateAvg(numberToFactionList(fac), place);
-    	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac), place);
-    	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(2).getFaction()), place);
-    	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(3).getFaction()), place);
+    	if(place == 0) toReturn = calculateAvg(numberToFactionList(fac), place, true, fac);
+    	if(place == 1) toReturn = calculateAvg(numberToFactionList(fac), place, true, fac);
+    	if(place == 2) toReturn = calculateAvg(numberToFactionList(survivors.get(2).getFaction()), place, true, fac);
+    	if(place == 3) toReturn = calculateAvg(numberToFactionList(survivors.get(3).getFaction()), place, true, fac);
     	if(toReturn == null) {
     		System.out.println("Somehow got a null return value in parentOfFaction");
     		System.out.println("error occured at place: "+place);
@@ -431,7 +446,8 @@ public class Map {
 
     	//needed for setUp()
     	setSomeUp = false;
-    	
+    	resetTerritory();
+
     	if(mapList.size()>=1) {
     	int sz = mapList.size();
     	for(int i = sz-1; i > -1; i--){
@@ -439,7 +455,6 @@ public class Map {
     		}
     	}
     	
-    	resetTerritory();
     	bw.genstate = GENSTATE.SET_UP;
  
 }

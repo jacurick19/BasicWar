@@ -128,7 +128,7 @@ public class Troop extends Unit {
     
     public void act(){
     	//Die of natural causes
-    	//if(time > (strength*100))die();
+    	if(time > (strength*100))die();
     	
     	//die if you have no health
     	if(health<0) die();
@@ -159,9 +159,9 @@ public class Troop extends Unit {
     }
     
     //changed so moving grants food
-    public void moveUp() { if(y > 0)y--;
+    public void moveUp() { if(y > 2)y--;
     	food+=2;}
-    public void moveLeft() { if(x > 0)x--;
+    public void moveLeft() { if(x > 2)x--;
     food+=2;}
     public void moveDown() { if(y < 498)y++;
     food+=2;}
@@ -303,10 +303,12 @@ public class Troop extends Unit {
     
     
     public void reproduceRandomly() {
+    
     	 if((health * 1.0)/(TROOP_HEALTH)>.75 && food > 5 && repro >0){
     		 int rand = random.nextInt(map.territoryObjectArray.get(faction).size());
-             food-=10;
+           //  food-=10;
              repro--;;
+    		 System.out.println("reproduced");
              map.addMap(new Troop(map.territoryObjectArray.get(faction).get(rand).x, map.territoryObjectArray.get(faction).get(rand).y, this, map));
              drive = 0;
          }
